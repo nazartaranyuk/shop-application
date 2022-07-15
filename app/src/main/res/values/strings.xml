@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Shop Application</string>
+    <string name="search_field_text">Search product or brand</string>
+    <string name="trending_now">Trending now</string>
+    <string name="see_all">See all</string>
+    <string name="shop">Shop</string>
+    <string name="explore">Explore</string>
+    <string name="favourite">Favourite</string>
+    <string name="account">Account</string>
+    <string name="category_item">Category item</string>
+    <string name="browse_categories">Browse categories</string>
 </resources>

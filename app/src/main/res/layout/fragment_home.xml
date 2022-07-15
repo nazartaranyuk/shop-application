@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nazartaraniuk.shopapplication.presentation.home.HomeFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:layout_height="match_parent"
+        tools:context=".presentation.home.HomeFragment">
+
+        <EditText
+            android:id="@+id/et_search_field"
+            android:fontFamily="@font/brandon"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/search_field"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:hint="@string/search_field_text"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.144"
+            app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="username"
+            android:inputType="textAutoComplete" />
+
+
+        <ImageView
+            android:id="@+id/iv_shop_icon"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_shop"
+            app:layout_constraintEnd_toStartOf="@id/et_search_field"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/shop" />
+
+        <TextView
+            android:id="@+id/tv_categories"
+            android:fontFamily="@font/brandon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="@string/browse_categories"
+            android:textColor="@color/dark"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_shop_icon" />
+
+        <TextView
+            android:fontFamily="@font/brandon"
+            android:textColor="@color/orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="100dp"
+            android:text="@string/see_all"
+            app:layout_constraintTop_toBottomOf="@id/et_search_field"
+            app:layout_constraintStart_toEndOf="@id/tv_categories" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categories"
+            tools:listitem="@layout/category_item"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_categories"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
