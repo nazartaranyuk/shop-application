@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="browse_categories">Browse categories</string>
+    <string name="trending_product">Trending product</string>
+    <string name="main_image">Main image</string>
 </resources>

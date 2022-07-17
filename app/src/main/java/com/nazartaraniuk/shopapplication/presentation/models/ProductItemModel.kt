@@ -1,8 +1,8 @@
-package com.nazartaraniuk.shopapplication.data.entities
+package com.nazartaraniuk.shopapplication.presentation.models
 
 import com.nazartaraniuk.shopapplication.domain.entities.Rating
 
-data class ProductItemEntity(
+data class ProductItemModel(
     val category: String,
     val description: String,
     val id: Int,

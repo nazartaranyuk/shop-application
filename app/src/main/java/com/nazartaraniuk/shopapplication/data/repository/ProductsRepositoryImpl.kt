@@ -2,6 +2,7 @@ package com.nazartaraniuk.shopapplication.data.repository
 
 import android.net.Network
 import com.nazartaraniuk.shopapplication.domain.common.NetworkResult
+import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.domain.repository.ProductsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -12,6 +13,10 @@ class ProductsRepositoryImpl @Inject constructor(
 
     override suspend fun fetchCategories(): Flow<NetworkResult<List<String>>> {
         return remoteDataSource.getAllCategories()
+    }
+
+    override suspend fun fetchProducts(): Flow<NetworkResult<List<ProductItem>>> {
+        return remoteDataSource.getAllProducts()
     }
 
 }

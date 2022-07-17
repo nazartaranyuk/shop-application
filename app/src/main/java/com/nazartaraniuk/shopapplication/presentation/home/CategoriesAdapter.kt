@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
@@ -32,7 +33,11 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHol
     inner class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(element: String) {
-            binding.tvCategoryDescription.text = element
+            binding.tvCategoryDescription.text = element.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            }
 
             when(listOfCategories[adapterPosition]) {
                 "electronics" -> loadImage(binding.ivCategoryItem, R.drawable.electronics)
@@ -45,7 +50,8 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHol
         private fun loadImage(imageView: ImageView, @DrawableRes image: Int) {
             Picasso.get()
                 .load(image)
-                .centerCrop()
+                .fit()
+                .error(R.drawable.ic_launcher_foreground)
                 .into(imageView)
         }
     }
