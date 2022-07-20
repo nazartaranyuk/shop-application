@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="300dp"
     android:height="52dp"
     android:viewportWidth="300"
@@ -11,7 +10,7 @@
         <clip-path android:pathData="M15 0H285C293.284 0 300 6.71573 300 15V37C300 45.2843 293.284 52 285 52H15C6.71573 52 0 45.2843 0 37V15C0 6.71573 6.71573 0 15 0Z" />
 
         <path
-            android:fillColor="#F2F3F2"
+            android:fillColor="@color/search_field"
             android:pathData="M0 0V52H300V0" />
 
     </group>

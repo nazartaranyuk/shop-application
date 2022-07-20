@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
 import com.nazartaraniuk.shopapplication.presentation.Events
+import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
+import com.nazartaraniuk.shopapplication.presentation.adapters.CategoryItemAdapterDelegate
+import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
+import com.nazartaraniuk.shopapplication.presentation.adapters.TrendingItemAdapterDelegate
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
@@ -18,8 +22,15 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val categoriesAdapter by lazy { CategoriesAdapter() }
-    private val trendingListAdapter by lazy { TrendingListAdapter() }
+    private val categoriesManager by lazy {
+        AdapterDelegatesManager(CategoryItemAdapterDelegate())
+    }
+    private val trendingManager by lazy {
+        AdapterDelegatesManager(TrendingItemAdapterDelegate())
+    }
+
+    private val trendingListAdapter by lazy { DelegationAdapter(trendingManager) }
+    private val categoriesAdapter by lazy { DelegationAdapter(categoriesManager) }
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
@@ -57,17 +68,17 @@ class HomeFragment : Fragment() {
     private fun subscribeToLiveData() = with(viewModel) {
         updateCategoriesList.observe(viewLifecycleOwner) {
             when (it) {
-                is Events.Success<*> -> categoriesAdapter.updateList(it.data as List<String>)
+                is Events.Success<*> -> categoriesAdapter.setItems(it.data as List<String>)
                 is Events.Error -> {
-                    categoriesAdapter.updateList(emptyList())
+                    categoriesAdapter.setItems(emptyList())
                 }
                 else -> {}
             }
         }
         updateTrendingList.observe(viewLifecycleOwner) {
             when(it) {
-                is Events.Success<*> -> trendingListAdapter.updateList(it.data as List<ProductItemModel>)
-                is Events.Error -> trendingListAdapter.updateList(emptyList())
+                is Events.Success<*> -> trendingListAdapter.setItems(it.data as List<ProductItemModel>)
+                is Events.Error -> trendingListAdapter.setItems(emptyList())
                 else -> {}
             }
         }

@@ -43,7 +43,6 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
     }
-
     private fun createTrendingList(list: List<ProductItem>?) : List<ProductItemModel> {
         val newList = mutableListOf<ProductItemModel>()
         // Here I sort the entry list by rating and put the first five values into a new list
