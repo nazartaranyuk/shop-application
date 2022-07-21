@@ -3,18 +3,12 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.IllegalArgumentException
-import kotlin.reflect.full.IllegalPropertyDelegateAccessException
 
-class AdapterDelegatesManager<T>(vararg delegates: AdapterDelegate<T>) {
+class AdapterDelegatesManager<T> (
+    vararg delegates: AdapterDelegate<T>
+) {
 
     private val delegates: SparseArrayCompat<AdapterDelegate<T>> = SparseArrayCompat()
-
-    init {
-        for (element in delegates) {
-            addDelegate(element)
-        }
-    }
 
     init {
         for (element in delegates) {

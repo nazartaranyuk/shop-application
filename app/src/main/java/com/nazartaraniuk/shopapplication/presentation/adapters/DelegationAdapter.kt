@@ -2,12 +2,13 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import javax.inject.Inject
 
-class DelegationAdapter<T>(
+class DelegationAdapter<T> (
     private val delegatesManager: AdapterDelegatesManager<T>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var items = mutableListOf<T>()
+    val items = mutableListOf<T>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegatesManager.onCreateViewHolder(parent, viewType)
@@ -23,7 +24,6 @@ class DelegationAdapter<T>(
 
     fun setItems(newList: List<T>) {
         items.apply {
-            clear()
             addAll(newList)
         }
     }

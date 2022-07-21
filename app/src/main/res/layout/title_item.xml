@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+
+            type="com.nazartaraniuk.shopapplication.presentation.home.HomeFragmentViewModel" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <TextView
+            tools:text="Some text"
+            android:fontFamily="@font/brandon"
+            android:textSize="26sp"
+            android:id="@+id/tv_trending_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tv_trending_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:fontFamily="@font/brandon"
+            android:text="@string/see_all"
+            android:textColor="@color/orange"
+            android:textSize="18sp" />
+    </LinearLayout>
+</layout>

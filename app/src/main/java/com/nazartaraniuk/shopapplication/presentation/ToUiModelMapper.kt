@@ -2,8 +2,11 @@ package com.nazartaraniuk.shopapplication.presentation
 
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.domain.entities.Rating
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
+import javax.inject.Singleton
 
+@Singleton
 object ToUiModelMapper {
 
     fun toProductItemModel(product: ProductItem): ProductItemModel {
@@ -18,6 +21,12 @@ object ToUiModelMapper {
                 rate = product.rating.rate
             ),
             title = product.title
+        )
+    }
+
+    fun toCategoryItemModel(category: String) : CategoryItemModel {
+        return CategoryItemModel(
+            category = category
         )
     }
 }

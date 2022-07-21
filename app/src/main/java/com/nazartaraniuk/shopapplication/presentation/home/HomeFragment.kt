@@ -10,27 +10,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
 import com.nazartaraniuk.shopapplication.presentation.Events
-import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
-import com.nazartaraniuk.shopapplication.presentation.adapters.CategoryItemAdapterDelegate
-import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
-import com.nazartaraniuk.shopapplication.presentation.adapters.TrendingItemAdapterDelegate
+import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val categoriesManager by lazy {
-        AdapterDelegatesManager(CategoryItemAdapterDelegate())
-    }
-    private val trendingManager by lazy {
-        AdapterDelegatesManager(TrendingItemAdapterDelegate())
+
+    private val adapterManager by lazy {
+        AdapterDelegatesManager(
+            ImageItemAdapterDelegate(),
+            TitleItemAdapterDelegate(),
+            CategoryItemAdapterDelegate(),
+            TrendingItemAdapterDelegate()
+        )
     }
 
-    private val trendingListAdapter by lazy { DelegationAdapter(trendingManager) }
-    private val categoriesAdapter by lazy { DelegationAdapter(categoriesManager) }
+    private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
@@ -46,8 +44,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-        setAdapter(binding.rvCategories, categoriesAdapter)
-        setAdapter(binding.rvTrendingNow, trendingListAdapter)
+        setAdapter(binding.rvRootList, rootAdapter)
 
         subscribeToLiveData()
         return binding.root
@@ -66,19 +63,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeToLiveData() = with(viewModel) {
-        updateCategoriesList.observe(viewLifecycleOwner) {
+        updateList.observe(viewLifecycleOwner) {
             when (it) {
-                is Events.Success<*> -> categoriesAdapter.setItems(it.data as List<String>)
-                is Events.Error -> {
-                    categoriesAdapter.setItems(emptyList())
+                is Events.Success<*> -> {
+                    rootAdapter.setItems(it.data as List<DisplayableItem>)
                 }
-                else -> {}
-            }
-        }
-        updateTrendingList.observe(viewLifecycleOwner) {
-            when(it) {
-                is Events.Success<*> -> trendingListAdapter.setItems(it.data as List<ProductItemModel>)
-                is Events.Error -> trendingListAdapter.setItems(emptyList())
+                is Events.Error -> {
+                    rootAdapter.setItems(emptyList())
+                }
                 else -> {}
             }
         }

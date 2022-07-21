@@ -19,8 +19,8 @@ class HomeFragmentViewModel @Inject constructor(
     private val getTrendingProductsUseCase: GetTrendingProductsUseCase
 ) : ViewModel() {
 
-    private val _updateCategoriesList = MutableLiveData<Events>()
-    val updateCategoriesList: LiveData<Events> get() = _updateCategoriesList
+    private val _updateList = MutableLiveData<Events>()
+    val updateList: LiveData<Events> get() = _updateList
 
     private val _updateTrendingList = MutableLiveData<Events>()
     val updateTrendingList: LiveData<Events> get() = _updateTrendingList
@@ -28,9 +28,11 @@ class HomeFragmentViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getCategoriesUseCase().collect {
-                _updateCategoriesList.value = when(it) {
+                _updateList.value = when(it) {
                     is NetworkResult.Loading -> Events.Loading
-                    is NetworkResult.Success -> Events.Success(it.data)
+                    is NetworkResult.Success -> Events.Success(it.data?.map { name ->
+                        ToUiModelMapper.toCategoryItemModel(name)
+                    })
                     is NetworkResult.Error -> Events.Error("Error!!")
                 }
             }
@@ -43,6 +45,7 @@ class HomeFragmentViewModel @Inject constructor(
             }
         }
     }
+
     private fun createTrendingList(list: List<ProductItem>?) : List<ProductItemModel> {
         val newList = mutableListOf<ProductItemModel>()
         // Here I sort the entry list by rating and put the first five values into a new list

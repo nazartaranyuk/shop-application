@@ -7,10 +7,11 @@ import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class CategoryItemAdapterDelegate : AdapterDelegate<String> {
+class CategoryItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -18,16 +19,29 @@ class CategoryItemAdapterDelegate : AdapterDelegate<String> {
         )
     }
 
+    override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
+        return items[position] is CategoryItemModel
+    }
+
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        items: List<DisplayableItem>,
+        position: Int
+    ) {
+        (holder as CategoryViewHolder).bind(items[position] as CategoryItemModel)
+    }
+
+
     inner class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(element: String) {
-            binding.tvCategoryDescription.text = element.replaceFirstChar {
+        fun bind(element: CategoryItemModel) {
+            binding.tvCategoryDescription.text = element.category.replaceFirstChar {
                 if (it.isLowerCase()) it.titlecase(
                     Locale.getDefault()
                 ) else it.toString()
             }
 
-            when(element) {
+            when(element.category) {
                 "electronics" -> loadImage(binding.ivCategoryItem, R.drawable.electronics)
                 "jewelery" -> loadImage(binding.ivCategoryItem, R.drawable.jewerly)
                 "men's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.mensclothing)
@@ -42,17 +56,5 @@ class CategoryItemAdapterDelegate : AdapterDelegate<String> {
                 .error(R.drawable.ic_launcher_foreground)
                 .into(imageView)
         }
-    }
-
-    override fun isForViewType(items: List<String>, position: Int): Boolean {
-        return items[position] is String
-    }
-
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        items: List<String>,
-        position: Int
-    ) {
-        (holder as CategoryViewHolder).bind(items[position])
     }
 }
