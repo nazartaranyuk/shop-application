@@ -26,7 +26,7 @@ class AdapterDelegatesManager<T> (
         delegate.onBindViewHolder(holder, items, position)
     }
 
-    private fun addDelegate(delegate: AdapterDelegate<T>) {
+    fun addDelegate(delegate: AdapterDelegate<T>) {
         var viewType = delegates.size()
         while (delegates[viewType] != null) {
             viewType++

@@ -28,6 +28,10 @@ class DelegationAdapter<T> (
         }
     }
 
+    fun addToList(item: T) {
+        items.add(item)
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }

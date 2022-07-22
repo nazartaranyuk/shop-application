@@ -12,6 +12,10 @@ import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
 import com.nazartaraniuk.shopapplication.presentation.Events
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
+import com.nazartaraniuk.shopapplication.presentation.models.ImageItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.TitleItemModel
 import javax.inject.Inject
 
 
@@ -24,9 +28,11 @@ class HomeFragment : Fragment() {
             ImageItemAdapterDelegate(),
             TitleItemAdapterDelegate(),
             CategoryItemAdapterDelegate(),
+            CategoryListAdapterDelegate(requireActivity()),
             TrendingItemAdapterDelegate()
         )
     }
+
 
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
@@ -45,7 +51,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         setAdapter(binding.rvRootList, rootAdapter)
-
         subscribeToLiveData()
         return binding.root
     }
@@ -57,7 +62,7 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(
             requireActivity(),
-            LinearLayoutManager.HORIZONTAL,
+            LinearLayoutManager.VERTICAL,
             false
         )
     }
@@ -66,7 +71,24 @@ class HomeFragment : Fragment() {
         updateList.observe(viewLifecycleOwner) {
             when (it) {
                 is Events.Success<*> -> {
-                    rootAdapter.setItems(it.data as List<DisplayableItem>)
+                    rootAdapter.setItems(
+                        listOf(
+                            ImageItemModel(
+                                "Some image"
+                            ),
+                            TitleItemModel(
+                                "Trending now",
+                            "some link"
+                            ),
+                            CategoryListModel(
+                                categories = it.data as List<CategoryItemModel>
+                            ),
+                            TitleItemModel(
+                                "Browse categories",
+                                "some link"
+                            )
+                        )
+                    )
                 }
                 is Events.Error -> {
                     rootAdapter.setItems(emptyList())
