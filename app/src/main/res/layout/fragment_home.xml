@@ -11,28 +11,37 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
-        android:layout_height="match_parent"
         tools:context=".presentation.home.HomeFragment">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/pb_loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/et_search_field"
-            android:fontFamily="@font/brandon"
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_marginTop="16dp"
+            android:autofillHints="username"
             android:background="@drawable/search_field"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="10dp"
             android:hint="@string/search_field_text"
+            android:inputType="textAutoComplete"
             android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.144"
             app:layout_constraintStart_toEndOf="@id/iv_shop_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="username"
-            android:inputType="textAutoComplete" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageView
@@ -42,21 +51,22 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/ic_shop"
+            android:contentDescription="@string/shop"
             app:layout_constraintEnd_toStartOf="@id/et_search_field"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/shop" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_rootList"
-            app:layout_constraintTop_toBottomOf="@id/et_search_field"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search_field" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

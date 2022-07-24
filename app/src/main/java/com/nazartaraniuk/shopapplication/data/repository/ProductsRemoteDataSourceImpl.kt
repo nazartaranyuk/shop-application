@@ -2,52 +2,35 @@ package com.nazartaraniuk.shopapplication.data.repository
 
 import com.nazartaraniuk.shopapplication.data.api.ProductsApi
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
-import com.nazartaraniuk.shopapplication.domain.common.NetworkResult
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.nazartaraniuk.shopapplication.presentation.exceptions.ApiErrorException
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 class ProductsRemoteDataSourceImpl @Inject constructor(
     private val productsApi: ProductsApi,
+    private val mapper: ApiResponseMapper
 ) : ProductsRemoteDataSource {
 
-    override suspend fun getAllCategories(): Flow<NetworkResult<List<String>>> = flow {
-
-        emit(NetworkResult.Loading())
-
-        try {
-            val response = productsApi.getAllCategories()
-            emit(NetworkResult.Success(response))
+    override suspend fun getAllCategories(): Result<List<String>> {
+        return try {
+            Result.success(productsApi.getAllCategories())
         } catch (e: HttpException) {
-            emit(
-                NetworkResult.Error(e.message ?: "Error ${e.code()}")
-            )
+            Result.failure(ApiErrorException("Error ${e.code()}"))
         } catch (e: IOException) {
-            emit(NetworkResult.Error(e.message ?: "Unknown error"))
+            Result.failure(ApiErrorException("You don't have internet connection"))
         }
-
     }
 
-    override suspend fun getAllProducts(): Flow<NetworkResult<List<ProductItem>>> = flow {
-
-        emit(NetworkResult.Loading())
-
-        try {
-            val response = productsApi.getAllProducts()
-            emit(NetworkResult.Success(response.map {
-                ApiResponseMapper.toProductItem(it)
-            }))
+    override suspend fun getAllProducts(): Result<List<ProductItem>> {
+        return try {
+            val list = productsApi.getAllProducts().map { mapper.toProductItem(it) }
+            Result.success(list)
         } catch (e: HttpException) {
-            emit(
-                NetworkResult.Error(e.message ?: "Error ${e.code()}")
-            )
+            Result.failure(ApiErrorException("Error ${e.code()}"))
         } catch (e: IOException) {
-            emit(
-                NetworkResult.Error(e.message ?: "Unknown error")
-            )
+            Result.failure(ApiErrorException("You don't have internet connection"))
         }
     }
 }

@@ -3,4 +3,5 @@
     <string name="browse_categories">Browse categories</string>
     <string name="trending_product">Trending product</string>
     <string name="main_image">Main image</string>
+    <string name="error_text">Please connect to internet</string>
 </resources>

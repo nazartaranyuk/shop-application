@@ -5,7 +5,7 @@ import com.nazartaraniuk.shopapplication.presentation.home.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
 
-@Component(modules=[NetworkModule::class, AppModule::class, ViewModelModule::class, BindModule::class])
+@Component(modules=[NetworkModule::class, AppModule::class, ViewModelModule::class, BindModule::class, UtilsModule::class])
 interface AppComponent {
 
     fun inject(fragment: HomeFragment)

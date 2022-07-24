@@ -12,4 +12,6 @@
     <string name="tv_trending_now">Trending now</string>
     <string name="trending_product">Trending product</string>
     <string name="main_image">Main image</string>
+    <string name="error_text">Please connect to internet</string>
+    <string name="ok">OK</string>
 </resources>

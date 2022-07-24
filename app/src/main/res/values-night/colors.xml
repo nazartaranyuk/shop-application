@@ -2,7 +2,7 @@
 <resources>
     <color name="bottom_navigation">#222222</color>
     <color name="search_field">@color/dark_gray</color>
-    <color name="state_selected">@color/white</color>
+    <color name="state_selected">@color/light_gray</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

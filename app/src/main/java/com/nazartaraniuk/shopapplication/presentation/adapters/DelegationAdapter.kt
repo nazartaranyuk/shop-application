@@ -27,6 +27,7 @@ class DelegationAdapter<T> (
             clear()
             addAll(newList)
         }
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package com.nazartaraniuk.shopapplication.presentation
+package com.nazartaraniuk.shopapplication.presentation.mappers
 
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.domain.entities.Rating

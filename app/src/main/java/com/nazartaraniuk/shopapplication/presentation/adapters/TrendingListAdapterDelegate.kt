@@ -23,7 +23,7 @@ class TrendingListAdapterDelegate(
     }
 
     override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
-        return items[position] is CategoryListModel
+        return items[position] is TrendingListModel
     }
 
     override fun onBindViewHolder(

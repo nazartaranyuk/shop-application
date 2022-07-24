@@ -1,21 +1,18 @@
 package com.nazartaraniuk.shopapplication.data.repository
 
-import android.net.Network
-import com.nazartaraniuk.shopapplication.domain.common.NetworkResult
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.domain.repository.ProductsRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class ProductsRepositoryImpl @Inject constructor(
     private val remoteDataSource: ProductsRemoteDataSource
 ) : ProductsRepository {
 
-    override suspend fun fetchCategories(): Flow<NetworkResult<List<String>>> {
+    override suspend fun fetchCategories(): Result<List<String>> {
         return remoteDataSource.getAllCategories()
     }
 
-    override suspend fun fetchProducts(): Flow<NetworkResult<List<ProductItem>>> {
+    override suspend fun fetchProducts(): Result<List<ProductItem>> {
         return remoteDataSource.getAllProducts()
     }
 

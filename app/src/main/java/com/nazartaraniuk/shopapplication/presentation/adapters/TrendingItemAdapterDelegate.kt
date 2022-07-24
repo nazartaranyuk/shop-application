@@ -34,7 +34,7 @@ class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
         fun bind(model: ProductItemModel) {
             loadImage(binding.ivTrendingProductImage, model.image)
             binding.tvTrendingItemName.text = model.title
-            binding.tvTrendingItemPrice.text = model.price.toString()
+            binding.tvTrendingItemPrice.text = "${model.price} USD"
         }
 
         private fun loadImage(imageView: ImageView, imageUrl: String) {

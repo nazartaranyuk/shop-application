@@ -9,12 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
-import com.nazartaraniuk.shopapplication.presentation.Events
-import com.nazartaraniuk.shopapplication.presentation.GUIComposer
+import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
-import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
 
@@ -72,19 +69,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun subscribeToLiveData() = with(viewModel) {
-        updateList.observe(viewLifecycleOwner) {
+        errorAction.observe(viewLifecycleOwner) {
             when (it) {
-                is Events.Success -> {
-                    rootAdapter.setItems(it.data ?: emptyList())
-                }
                 is Events.Error -> {
                     rootAdapter.setItems(emptyList())
-                    // TODO Make a toast
-                }
-                is Events.Loading -> {
-                    // TODO Make a progress bar
+                    HomeFragmentDialogError("Error! ${it.message}").show(parentFragmentManager, "DIALOG")
                 }
             }
+        }
+        loadingState.observe(viewLifecycleOwner) {
+            rootAdapter.setItems(it.items)
+            binding.pbLoading.visibility = if (it.isLoading) View.VISIBLE else View.GONE
         }
     }
 }
