@@ -8,7 +8,7 @@ class DelegationAdapter<T> (
     private val delegatesManager: AdapterDelegatesManager<T>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val items = mutableListOf<T>()
+    private val items = mutableListOf<T>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegatesManager.onCreateViewHolder(parent, viewType)
@@ -24,12 +24,9 @@ class DelegationAdapter<T> (
 
     fun setItems(newList: List<T>) {
         items.apply {
+            clear()
             addAll(newList)
         }
-    }
-
-    fun addToList(item: T) {
-        items.add(item)
     }
 
     override fun getItemCount(): Int {

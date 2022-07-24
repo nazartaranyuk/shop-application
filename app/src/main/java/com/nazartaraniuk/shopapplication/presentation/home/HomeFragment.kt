@@ -10,12 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
 import com.nazartaraniuk.shopapplication.presentation.Events
+import com.nazartaraniuk.shopapplication.presentation.GUIComposer
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
-import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
-import com.nazartaraniuk.shopapplication.presentation.models.ImageItemModel
-import com.nazartaraniuk.shopapplication.presentation.models.TitleItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
 
@@ -29,10 +28,10 @@ class HomeFragment : Fragment() {
             TitleItemAdapterDelegate(),
             CategoryItemAdapterDelegate(),
             CategoryListAdapterDelegate(requireActivity()),
+            TrendingListAdapterDelegate(requireActivity()),
             TrendingItemAdapterDelegate()
         )
     }
-
 
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
@@ -50,9 +49,14 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-        setAdapter(binding.rvRootList, rootAdapter)
-        subscribeToLiveData()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        subscribeToLiveData()
+        setAdapter(binding.rvRootList, rootAdapter)
     }
 
     private fun <R : RecyclerView.ViewHolder?> setAdapter(
@@ -70,30 +74,16 @@ class HomeFragment : Fragment() {
     private fun subscribeToLiveData() = with(viewModel) {
         updateList.observe(viewLifecycleOwner) {
             when (it) {
-                is Events.Success<*> -> {
-                    rootAdapter.setItems(
-                        listOf(
-                            ImageItemModel(
-                                "Some image"
-                            ),
-                            TitleItemModel(
-                                "Trending now",
-                            "some link"
-                            ),
-                            CategoryListModel(
-                                categories = it.data as List<CategoryItemModel>
-                            ),
-                            TitleItemModel(
-                                "Browse categories",
-                                "some link"
-                            )
-                        )
-                    )
+                is Events.Success -> {
+                    rootAdapter.setItems(it.data ?: emptyList())
                 }
                 is Events.Error -> {
                     rootAdapter.setItems(emptyList())
+                    // TODO Make a toast
                 }
-                else -> {}
+                is Events.Loading -> {
+                    // TODO Make a progress bar
+                }
             }
         }
     }
