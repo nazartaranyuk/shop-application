@@ -4,6 +4,8 @@ import com.nazartaraniuk.shopapplication.data.repository.ProductsRemoteDataSourc
 import com.nazartaraniuk.shopapplication.data.repository.ProductsRemoteDataSourceImpl
 import com.nazartaraniuk.shopapplication.data.repository.ProductsRepositoryImpl
 import com.nazartaraniuk.shopapplication.domain.repository.ProductsRepository
+import com.nazartaraniuk.shopapplication.presentation.search_screen.MainContract
+import com.nazartaraniuk.shopapplication.presentation.search_screen.SearchFragmentPresenter
 import dagger.Binds
 import dagger.Module
 
@@ -15,5 +17,8 @@ interface BindModule {
 
     @Binds
     fun bindDataSource(dataSource: ProductsRemoteDataSourceImpl) : ProductsRemoteDataSource
+
+    @Binds
+    fun bindPresenter(presenter: SearchFragmentPresenter) : MainContract.Presenter
 
 }

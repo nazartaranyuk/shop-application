@@ -11,4 +11,7 @@ data class ProductItemModel(
     val price: Double,
     val rating: Rating,
     val title: String
-) : DisplayableItem
+) : DisplayableItem {
+
+    override fun id(): String = title
+}

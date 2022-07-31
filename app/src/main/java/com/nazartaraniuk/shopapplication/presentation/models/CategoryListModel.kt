@@ -4,4 +4,7 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
 
 data class CategoryListModel(
     val categories: List<CategoryItemModel>
-) : DisplayableItem
+) : DisplayableItem {
+
+    override fun id(): String = categories.toString()
+}

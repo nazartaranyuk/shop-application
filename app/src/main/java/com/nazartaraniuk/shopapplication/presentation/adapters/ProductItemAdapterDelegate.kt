@@ -9,10 +9,10 @@ import com.nazartaraniuk.shopapplication.databinding.TrendingProductItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.squareup.picasso.Picasso
 
-class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
+class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
-        return TrendingViewHolder(
+        return ProductViewHolder(
             TrendingProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
@@ -26,10 +26,10 @@ class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
         items: List<DisplayableItem>,
         position: Int
     ) {
-        (holder as TrendingViewHolder).bind(items[position] as ProductItemModel)
+        (holder as ProductViewHolder).bind(items[position] as ProductItemModel)
     }
 
-    inner class TrendingViewHolder(private val binding: TrendingProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductViewHolder(private val binding: TrendingProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: ProductItemModel) {
             loadImage(binding.ivTrendingProductImage, model.image)

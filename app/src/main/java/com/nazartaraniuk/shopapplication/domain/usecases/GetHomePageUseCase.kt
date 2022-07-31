@@ -2,18 +2,20 @@ package com.nazartaraniuk.shopapplication.domain.usecases
 
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.domain.repository.ProductsRepository
-import com.nazartaraniuk.shopapplication.presentation.common.GUIComposer
-import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
 import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
+import com.nazartaraniuk.shopapplication.presentation.common.HomeFragmentUIComposer
+import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetHomePageUseCase @Inject constructor(
     private val repository: ProductsRepository,
     private val mapper: ToUiModelMapper,
-    private val composer: GUIComposer
+    private val composer: HomeFragmentUIComposer
 ) {
 
     suspend operator fun invoke(): Flow<Result<List<DisplayableItem>>> =
@@ -41,22 +43,11 @@ class GetHomePageUseCase @Inject constructor(
             }
         }
 
-    private fun createTrendingList(list: List<ProductItem>?): List<ProductItemModel> {
-        if (list.isNullOrEmpty()) {
-            return emptyList()
-        }
-
-        val newList = mutableListOf<ProductItemModel>()
-        // Here I sort the entry list by rating and put the first five values into a new list
-        list.sortedBy { it.rating.rate }
-        var i = 0
-        while (i < 5) {
-            val tempItem =
-                ToUiModelMapper.toProductItemModel(list[i])
-            newList.add(tempItem)
-            i++
-        }
-        return newList
+    private fun createTrendingList(list: List<ProductItem>): List<ProductItemModel> {
+        return list
+            .sortedBy { it.rating.rate }
+            .take(5)
+            .map { item -> mapper.toProductItemModel(item) }
     }
 
 }

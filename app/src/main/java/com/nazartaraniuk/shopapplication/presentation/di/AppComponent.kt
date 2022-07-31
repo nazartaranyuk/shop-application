@@ -1,7 +1,9 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
 import android.app.Application
-import com.nazartaraniuk.shopapplication.presentation.home.HomeFragment
+import com.nazartaraniuk.shopapplication.presentation.explore_screen.ExploreFragment
+import com.nazartaraniuk.shopapplication.presentation.home_screen.HomeFragment
+import com.nazartaraniuk.shopapplication.presentation.search_screen.SearchFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -9,6 +11,8 @@ import dagger.Component
 interface AppComponent {
 
     fun inject(fragment: HomeFragment)
+    fun inject(fragment: SearchFragment)
+    fun inject(fragment: ExploreFragment)
 
     @Component.Builder
     interface ComponentBuilder {

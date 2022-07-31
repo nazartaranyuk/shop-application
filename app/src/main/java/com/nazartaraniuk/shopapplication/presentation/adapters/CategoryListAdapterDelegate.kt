@@ -1,23 +1,13 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
-import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
-import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
-import com.squareup.picasso.Picasso
-import java.util.*
 
-class CategoryListAdapterDelegate(
-    val context: Context
-) :
+class CategoryListAdapterDelegate :
     AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -53,7 +43,7 @@ class CategoryListAdapterDelegate(
 
             binding.rvCategoriesList.adapter = adapter
             binding.rvCategoriesList.layoutManager = LinearLayoutManager(
-                context,
+                binding.root.context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )

@@ -1,7 +1,8 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
-import com.nazartaraniuk.shopapplication.presentation.common.GUIComposer
+import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
+import com.nazartaraniuk.shopapplication.presentation.common.HomeFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
 import dagger.Module
 import dagger.Provides
@@ -11,7 +12,7 @@ class UtilsModule {
 
     @Provides
     fun provideUiMapper() : ToUiModelMapper {
-        return ToUiModelMapper
+        return ToUiModelMapper()
     }
 
     @Provides
@@ -20,7 +21,12 @@ class UtilsModule {
     }
 
     @Provides
-    fun provideComposer() : GUIComposer {
-        return GUIComposer
+    fun provideHomeComposer() : HomeFragmentUIComposer {
+        return HomeFragmentUIComposer
+    }
+
+    @Provides
+    fun provideExploreComposer() : ExploreFragmentUIComposer {
+        return ExploreFragmentUIComposer
     }
 }

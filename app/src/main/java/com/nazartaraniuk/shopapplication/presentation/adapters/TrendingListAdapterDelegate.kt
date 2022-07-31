@@ -1,19 +1,13 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
 import com.nazartaraniuk.shopapplication.databinding.TrendingListItemBinding
-import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.TrendingListModel
 
-class TrendingListAdapterDelegate(
-    val context: Context
-) :
+class TrendingListAdapterDelegate:
     AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -41,7 +35,7 @@ class TrendingListAdapterDelegate(
         fun bind(model: TrendingListModel) {
 
             val adapterManager = AdapterDelegatesManager(
-                TrendingItemAdapterDelegate()
+                ProductItemAdapterDelegate()
             )
 
             val adapter = DelegationAdapter(adapterManager)
@@ -49,7 +43,7 @@ class TrendingListAdapterDelegate(
 
             binding.rvTrendingList.adapter = adapter
             binding.rvTrendingList.layoutManager = LinearLayoutManager(
-                context,
+                binding.root.context,
                 LinearLayoutManager.HORIZONTAL,
                 false
             )

@@ -7,7 +7,7 @@ import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Singleton
 
 @Singleton
-object ToUiModelMapper {
+class ToUiModelMapper {
 
     fun toProductItemModel(product: ProductItem): ProductItemModel {
         return ProductItemModel(

@@ -9,13 +9,14 @@ import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.squareup.picasso.Picasso
-import java.util.*
 
 class CategoryItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
-            CategoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CategoryItemBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
         )
     }
 
@@ -32,20 +33,19 @@ class CategoryItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
     }
 
 
-    inner class CategoryViewHolder(private val binding: CategoryItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CategoryViewHolder(
+        private val binding: CategoryItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(element: CategoryItemModel) {
-            binding.tvCategoryDescription.text = element.category.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(
-                    Locale.getDefault()
-                ) else it.toString()
-            }
+            binding.tvCategoryDescription.text = element.category
 
-            when(element.category) {
-                "electronics" -> loadImage(binding.ivCategoryItem, R.drawable.electronics)
-                "jewelery" -> loadImage(binding.ivCategoryItem, R.drawable.jewerly)
-                "men's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.mensclothing)
-                "women's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.womensclothing)
+            when (element.category) {
+                // TODO move this magic words to companion object
+                "Electronics" -> loadImage(binding.ivCategoryItem, R.drawable.electronics)
+                "Jewelery" -> loadImage(binding.ivCategoryItem, R.drawable.jewerly)
+                "Men's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.mensclothing)
+                "Women's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.womensclothing)
             }
         }
 

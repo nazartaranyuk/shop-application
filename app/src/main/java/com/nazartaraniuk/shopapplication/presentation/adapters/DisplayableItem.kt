@@ -1,3 +1,5 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
-interface DisplayableItem
+interface DisplayableItem {
+    fun id() = this.toString()
+}

@@ -1,4 +1,4 @@
-package com.nazartaraniuk.shopapplication.presentation.home
+package com.nazartaraniuk.shopapplication.presentation.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,7 +6,8 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.nazartaraniuk.shopapplication.R
 
-class HomeFragmentDialogError(private val message: String) : DialogFragment() {
+class DialogError(private val message: String) : DialogFragment() {
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)

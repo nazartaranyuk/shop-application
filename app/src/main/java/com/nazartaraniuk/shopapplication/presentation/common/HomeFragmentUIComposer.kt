@@ -5,7 +5,7 @@ import com.nazartaraniuk.shopapplication.presentation.models.*
 import javax.inject.Singleton
 
 @Singleton
-object GUIComposer {
+object HomeFragmentUIComposer {
 
     fun composeInterface(
         firstList: List<CategoryItemModel>,
@@ -17,17 +17,15 @@ object GUIComposer {
             ),
             TitleItemModel(
                 "Trending now",
-                "some link"
             ),
             TrendingListModel(
                 trendingItems = secondList
             ),
             TitleItemModel(
                 "Browse categories",
-                "some link"
             ),
             CategoryListModel(
-                categories = firstList
+                categories = firstLetterToUpperCase(firstList)
             )
         )
     }

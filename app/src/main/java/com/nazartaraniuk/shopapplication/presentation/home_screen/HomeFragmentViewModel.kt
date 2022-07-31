@@ -1,10 +1,13 @@
-package com.nazartaraniuk.shopapplication.presentation.home
+package com.nazartaraniuk.shopapplication.presentation.home_screen
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.nazartaraniuk.shopapplication.domain.usecases.GetHomePageUseCase
+import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.SingleLiveEvent
-import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -12,8 +15,8 @@ class HomeFragmentViewModel @Inject constructor(
     private val getHomePageUseCase: GetHomePageUseCase
 ) : ViewModel() {
 
-    private val _errorAction = SingleLiveEvent<Events<List<DisplayableItem>>>()
-    val errorAction: LiveData<Events<List<DisplayableItem>>> get() = _errorAction
+    private val _errorAction = SingleLiveEvent<Events>()
+    val errorAction: LiveData<Events> get() = _errorAction
 
     private val _loadingState = MutableLiveData<HomeViewModelState<DisplayableItem>>()
     val loadingState: LiveData<HomeViewModelState<DisplayableItem>> get() = _loadingState
