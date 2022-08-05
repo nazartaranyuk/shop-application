@@ -19,15 +19,20 @@ class GetExplorePageUseCase @Inject constructor(
         withContext(Dispatchers.IO) {
             flow {
                 val categories = repository.fetchCategories()
-                if (categories.isFailure) {
+                val products = repository.fetchProducts()
+
+                if (categories.isFailure || products.isFailure) {
                     val throwable = categories.exceptionOrNull()
                     emit(Result.failure(throwable ?: Exception("Error")))
                 } else {
                     val listOfCategories = categories.getOrNull() ?: emptyList()
+                    val listOfProducts = products.getOrNull() ?: emptyList()
+
                     emit(
                         Result.success(
                             composer.composeInterface(
                                 firstList = listOfCategories.map(mapper::toCategoryItemModel),
+                                secondList = listOfProducts.map(mapper::toProductItemModel)
                             )
                         )
                     )

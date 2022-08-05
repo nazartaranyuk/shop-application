@@ -1,6 +1,7 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
+import com.nazartaraniuk.shopapplication.domain.mappers.DomainMapper
 import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.common.HomeFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
@@ -16,8 +17,13 @@ class UtilsModule {
     }
 
     @Provides
+    fun provideDomainMapper() : DomainMapper {
+        return DomainMapper()
+    }
+
+    @Provides
     fun providesApiResponseMapper() : ApiResponseMapper {
-        return ApiResponseMapper
+        return ApiResponseMapper()
     }
 
     @Provides

@@ -3,17 +3,23 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
+import com.nazartaraniuk.shopapplication.databinding.ProductItemBinding
 import com.nazartaraniuk.shopapplication.databinding.TrendingProductItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
+import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragmentDirections
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return ProductViewHolder(
-            TrendingProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -29,12 +35,19 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
         (holder as ProductViewHolder).bind(items[position] as ProductItemModel)
     }
 
-    inner class ProductViewHolder(private val binding: TrendingProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductViewHolder(private val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: ProductItemModel) {
-            loadImage(binding.ivTrendingProductImage, model.image)
-            binding.tvTrendingItemName.text = model.title
+            loadImage(binding.ivProductImage, model.image)
+            binding.tvProductItemName.text = model.title
+            binding.tvProductItemCategory.text = model.category
             binding.tvTrendingItemPrice.text = "${model.price} USD"
+
+            binding.root.setOnClickListener {
+                val navController = Navigation.findNavController(it)
+                val bundle = bundleOf("id" to model.id)
+                navController.navigate(R.id.action_global_productPageFragment, bundle)
+            }
         }
 
         private fun loadImage(imageView: ImageView, imageUrl: String) {

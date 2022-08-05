@@ -14,7 +14,6 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
-import com.nazartaraniuk.shopapplication.presentation.delegates.viewBinding
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
@@ -23,7 +22,7 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
-    private val binding by viewBinding(FragmentHomeBinding::bind)
+    private lateinit var binding: FragmentHomeBinding
     private val adapterManager by lazy {
         AdapterDelegatesManager(
             ImageItemAdapterDelegate(),
@@ -40,8 +39,9 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -78,13 +78,15 @@ class HomeFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
+                    binding.shimmerAnimationLoading.visibility = it.visibility
+                    binding.rvRootList.visibility = it.visibility
                 }
             }
         }
         loadingState.observe(viewLifecycleOwner) {
             rootAdapter.setItems(it.items)
-            // TODO move this to viewModel
-            binding.pbLoading.visibility = if (it.isLoading) View.VISIBLE else View.GONE
+            binding.shimmerAnimationLoading.visibility = it.animationVisibility
+            binding.rvRootList.visibility = it.interfaceVisibility
         }
     }
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.SplashScreen" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowSplashScreenBackground">@color/dark_gray</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/splash_animation</item>
+        <item name="windowSplashScreenAnimationDuration">500</item>
+    </style>
+</resources>

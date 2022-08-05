@@ -1,5 +1,6 @@
 package com.nazartaraniuk.shopapplication.presentation.home_screen
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,19 +24,19 @@ class HomeFragmentViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _loadingState.value = HomeViewModelState(listOf(), true)
+            _loadingState.value = HomeViewModelState(listOf(), View.VISIBLE, View.GONE)
             getHomePageUseCase().collect { result ->
                 result
                     .onSuccess { list ->
-                        _loadingState.value = HomeViewModelState(list, false)
+                        _loadingState.value = HomeViewModelState(list, View.GONE, View.VISIBLE)
                     }
                     .onFailure { exception ->
                         _errorAction.value =
-                            Events.Error(exception.message ?: "Some error")
+                            Events.Error(exception.message ?: "Some error", View.GONE)
                     }
             }
         }
     }
 
-    data class HomeViewModelState<T>(val items: List<T>, val isLoading: Boolean)
+    data class HomeViewModelState<T>(val items: List<T>, val animationVisibility: Int, val interfaceVisibility: Int)
 }

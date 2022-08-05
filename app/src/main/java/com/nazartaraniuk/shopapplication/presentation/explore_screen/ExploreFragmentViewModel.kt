@@ -1,5 +1,6 @@
 package com.nazartaraniuk.shopapplication.presentation.explore_screen
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,19 +24,19 @@ class ExploreFragmentViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _loadingState.value = ExploreViewModelState(listOf(), true)
+            _loadingState.value = ExploreViewModelState(listOf(), View.VISIBLE)
             getExplorePageUseCase().collect { result ->
                 result
                     .onSuccess { list ->
-                        _loadingState.value = ExploreViewModelState(list, false)
+                        _loadingState.value = ExploreViewModelState(list, View.GONE)
                     }
                     .onFailure { exception ->
                         _errorAction.value =
-                            Events.Error(exception.message ?: "Some error")
+                            Events.Error(exception.message ?: "Unknown error", View.GONE)
                     }
             }
         }
     }
 
-    data class ExploreViewModelState<T>(val items: List<T>, val isLoading: Boolean)
+    data class ExploreViewModelState<T>(val items: List<T>, val visibility: Int)
 }

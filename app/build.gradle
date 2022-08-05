@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'org.jlleitschuh.gradle.ktlint'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
     implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.24'
     implementation 'androidx.fragment:fragment-ktx:1.5.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
 
@@ -60,16 +61,18 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     implementation 'com.google.dagger:dagger:2.36'
     kapt 'com.google.dagger:dagger-compiler:2.36'
-
+    // Splash Screen API
+    implementation "androidx.core:core-splashscreen:1.0.0"
     // Call adapter for RxJava3
     implementation 'com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0'
-
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.0'
-
+    // Skeleton animation
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 }

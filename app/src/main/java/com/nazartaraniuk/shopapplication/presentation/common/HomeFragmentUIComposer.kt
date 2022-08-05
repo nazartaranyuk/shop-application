@@ -11,15 +11,15 @@ object HomeFragmentUIComposer {
         firstList: List<CategoryItemModel>,
         secondList: List<ProductItemModel>
     ): List<DisplayableItem> {
-        return mutableListOf(
+        return listOf(
             ImageItemModel(
                 "Some image"
             ),
             TitleItemModel(
                 "Trending now",
             ),
-            TrendingListModel(
-                trendingItems = secondList
+            ProductListModel(
+                productItems = secondList
             ),
             TitleItemModel(
                 "Browse categories",

@@ -16,16 +16,25 @@ class ProductsRemoteDataSourceImpl @Inject constructor(
 ) : ProductsRemoteDataSource {
 
     override suspend fun getAllCategories(): Result<List<String>> {
-       return handleCatching { productsApi.getAllCategories() }
+        return handleCatching { productsApi.getAllCategories() }
     }
 
     override suspend fun getAllProducts(): Result<List<ProductItem>> {
-      return handleCatching {
-           productsApi
-               .getAllProducts()
-               .map(mapper::toProductItem)
-       }
+        return handleCatching {
+            productsApi
+                .getAllProducts()
+                .map(mapper::toProductItem)
+        }
     }
+
+    override suspend fun getSingleProduct(id: Int): Result<ProductItem> {
+        return handleCatching {
+            mapper.toProductItem(
+                productsApi.getSingleProduct(id)
+            )
+        }
+    }
+
     override fun searchAllProducts(): Observable<List<ProductItem>> {
         return productsApi.searchAllProducts()
             .subscribeOn(Schedulers.io())

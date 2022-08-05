@@ -6,5 +6,6 @@ import io.reactivex.rxjava3.core.Observable
 interface ProductsRemoteDataSource {
     suspend fun getAllCategories() : Result<List<String>>
     suspend fun getAllProducts() : Result<List<ProductItem>>
+    suspend fun getSingleProduct(id: Int) : Result<ProductItem>
     fun searchAllProducts() : Observable<List<ProductItem>>
 }

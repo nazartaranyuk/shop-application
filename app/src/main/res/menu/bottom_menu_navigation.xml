@@ -3,10 +3,10 @@
 
     <item android:title="@string/shop"
         android:icon="@drawable/ic_store"
-        android:id="@+id/shop_menu"/>
+        android:id="@+id/homeFragment"/>
     <item android:title="@string/explore"
         android:icon="@drawable/ic_explore"
-        android:id="@+id/explore_menu"/>
+        android:id="@+id/exploreFragment"/>
     <item android:title="@string/favourite"
         android:icon="@drawable/ic_favourite"
         android:id="@+id/favourite_menu"/>

@@ -8,11 +8,17 @@ import javax.inject.Singleton
 object ExploreFragmentUIComposer {
 
     fun composeInterface(
-        firstList: List<CategoryItemModel>
+        firstList: List<CategoryItemModel>,
+        secondList: List<ProductItemModel>
     ): List<DisplayableItem> {
-        return mutableListOf(
+        return listOf(
             CategoriesSmallListModel(
-                categories = firstList
+                categories = mutableListOf(CategoryItemModel("All")).also {
+                    it.addAll(firstLetterToUpperCase(firstList))
+                }
+            ),
+            ProductListModel(
+                productItems = secondList
             )
         )
     }

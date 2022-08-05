@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    tools:context=".presentation.pdp_screen.ProductPageFragment">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_product_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/RoundedCorners"
+        tools:src="@drawable/main_image_photo" />
+
+    <ImageView
+        android:id="@+id/iv_add_to_favourite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_favorites_unchecked"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/favorites_button" />
+
+    <TextView
+        android:id="@+id/tv_product_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:maxLines="2"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_product_item_price"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_product_image"
+        tools:text="Lorem ipsum dolor amet Lorem ipsum dolor amet" />
+
+    <TextView
+        android:id="@+id/tv_product_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textFontWeight="1000"
+        android:textColor="@color/orange"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_product_item_name"
+        app:layout_constraintTop_toBottomOf="@id/iv_product_image"
+        tools:targetApi="p"
+        tools:text="234 USD" />
+
+    <TextView
+        android:id="@+id/tv_product_item_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_item_name"
+        tools:text="Category" />
+
+    <RatingBar
+        android:id="@+id/rb_product_item_rating"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:numStars="5"
+        android:progressTint="@color/orange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_product_item_category"
+        tools:rating="3.3" />
+
+    <TextView
+        android:id="@+id/tv_product_item_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rb_product_item_rating" />
+
+    <ProgressBar
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/pb_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:background="@drawable/btn_add_to_cart_style"
+        android:id="@+id/btn_add_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/add_to_cart" />
+</androidx.constraintlayout.widget.ConstraintLayout>

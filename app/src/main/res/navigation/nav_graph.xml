@@ -13,11 +13,20 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment"
+            app:popUpTo="@+id/nav_graph_application"
+            app:popUpToInclusive="true"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_homeFragment_to_exploreFragment"
-            app:destination="@id/exploreFragment" />
+            app:destination="@id/exploreFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@+id/nav_graph_application"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_productPageFragment"
+            app:destination="@id/productPageFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -30,6 +39,33 @@
         tools:layout="@layout/fragment_explore" >
         <action
             android:id="@+id/action_exploreFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+    <fragment
+        android:id="@+id/productPageFragment"
+        android:name="com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragment"
+        android:label="fragment_product_page"
+        tools:layout="@layout/fragment_product_page" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_productPageFragment"
+        app:destination="@id/productPageFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@animator/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim">
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </action>
+
 </navigation>

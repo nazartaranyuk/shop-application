@@ -2,27 +2,26 @@ package com.nazartaraniuk.shopapplication.presentation.explore_screen
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.nazartaraniuk.shopapplication.R
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.nazartaraniuk.shopapplication.databinding.FragmentExploreBinding
-import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
-import com.nazartaraniuk.shopapplication.presentation.adapters.CategoriesListSmallAdapterDelegate
-import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
+import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
-import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
-import com.nazartaraniuk.shopapplication.presentation.delegates.viewBinding
+import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
 
-    private val binding by viewBinding { FragmentExploreBinding.bind(it) }
+    private lateinit var binding: FragmentExploreBinding
     private val adapterManager = AdapterDelegatesManager(
-        CategoriesListSmallAdapterDelegate()
+        CategoriesListSmallAdapterDelegate(),
+        ProductItemAdapterDelegate(),
+        ProductsListGridAdapterDelegate()
     )
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
@@ -37,12 +36,24 @@ class ExploreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_explore, container, false)
+    ): View {
+        binding = FragmentExploreBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val linearLayoutManager = object : LinearLayoutManager(requireActivity()) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
+        setAdapter(
+            binding.rvRootList,
+            rootAdapter,
+            linearLayoutManager
+        )
         subscribeToLiveData()
     }
 
@@ -56,12 +67,14 @@ class ExploreFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
+//                    binding.pbLoading.visibility = it.visibility
                 }
             }
         }
+
         loadingState.observe(viewLifecycleOwner) {
             rootAdapter.setItems(it.items)
-            // TODO move this to viewModel
+            binding.pbLoading.visibility = it.visibility
         }
     }
 }

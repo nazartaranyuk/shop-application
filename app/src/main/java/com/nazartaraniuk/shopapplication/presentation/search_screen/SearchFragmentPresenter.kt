@@ -18,7 +18,6 @@ class SearchFragmentPresenter @Inject constructor(
 
     private val TAG = "Main Presenter"
     var view: MainContract.View? = null
-    fun attachView(view: MainContract.View) { this.view = view }
     private val compositeDisposable = CompositeDisposable()
     private val _searchDataObservable = getSearchProductsUseCase().map { list ->
         list.map(mapper::toProductItemModel)
@@ -26,6 +25,7 @@ class SearchFragmentPresenter @Inject constructor(
     private val searchDataObservable: Observable<List<ProductItemModel>>
         get() = _searchDataObservable
 
+    fun attachView(view: MainContract.View) { this.view = view }
 
     private val observer: DisposableObserver<List<ProductItemModel>>
         get() = object : DisposableObserver<List<ProductItemModel>>() {
