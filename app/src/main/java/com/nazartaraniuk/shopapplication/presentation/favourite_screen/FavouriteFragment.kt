@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import com.nazartaraniuk.shopapplication.R
-import com.nazartaraniuk.shopapplication.databinding.FragmentFavouriteBinding
+import com.nazartaraniuk.shopapplication.databinding.FragmentFavoritesBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
 import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
 import com.nazartaraniuk.shopapplication.presentation.adapters.ProductItemAdapterDelegate
@@ -15,7 +14,7 @@ import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 
 class FavouriteFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavouriteBinding
+    private lateinit var binding: FragmentFavoritesBinding
     private val adapterManager by lazy {
         AdapterDelegatesManager(
             ProductItemAdapterDelegate()
@@ -28,7 +27,7 @@ class FavouriteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouriteBinding.inflate(layoutInflater)
+        binding = FragmentFavoritesBinding.inflate(layoutInflater)
         return binding.root
     }
 

@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_homeFragment_to_productPageFragment"
             app:destination="@id/productPageFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -67,5 +70,10 @@
             app:argType="integer"
             android:defaultValue="1" />
     </action>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.nazartaraniuk.shopapplication.presentation.favourite_screen.FavouriteFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 
 </navigation>

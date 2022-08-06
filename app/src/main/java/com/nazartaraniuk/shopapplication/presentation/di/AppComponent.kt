@@ -2,7 +2,9 @@ package com.nazartaraniuk.shopapplication.presentation.di
 
 import android.app.Application
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.nazartaraniuk.shopapplication.presentation.explore_screen.ExploreFragment
+import com.nazartaraniuk.shopapplication.presentation.favorites_screen.FavoritesFragment
 import com.nazartaraniuk.shopapplication.presentation.home_screen.HomeFragment
 import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragment
 import com.nazartaraniuk.shopapplication.presentation.search_screen.SearchFragment
@@ -26,6 +28,7 @@ interface AppComponent {
     fun inject(fragment: SearchFragment)
     fun inject(fragment: ExploreFragment)
     fun inject(fragment: ProductPageFragment)
+    fun inject(fragment: FavoritesFragment)
 
     @Component.Builder
     interface ComponentBuilder {

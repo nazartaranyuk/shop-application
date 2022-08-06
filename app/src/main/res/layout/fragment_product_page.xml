@@ -21,15 +21,15 @@
         tools:src="@drawable/main_image_photo" />
 
     <ImageView
-        android:id="@+id/iv_add_to_favourite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_favorites_unchecked"
+        android:id="@+id/iv_add_to_favorites"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:contentDescription="@string/favorites_button" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:contentDescription="@string/favorites_button"
+        android:background="@drawable/heart_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_product_item_name"
@@ -49,8 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textFontWeight="1000"
         android:textColor="@color/orange"
+        android:textFontWeight="1000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_product_item_name"
@@ -81,30 +81,36 @@
         app:layout_constraintTop_toBottomOf="@id/tv_product_item_category"
         tools:rating="3.3" />
 
-    <TextView
-        android:id="@+id/tv_product_item_description"
+    <ScrollView
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rb_product_item_rating" />
+        app:layout_constraintTop_toBottomOf="@id/rb_product_item_rating">
+
+        <TextView
+            android:id="@+id/tv_product_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum Lorem ipsum dolor amet Lorem ipsum" />
+    </ScrollView>
 
     <ProgressBar
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/pb_loading"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:background="@drawable/btn_add_to_cart_style"
         android:id="@+id/btn_add_to_cart"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/add_to_cart" />
+        android:background="@drawable/btn_add_to_cart_style"
+        android:text="@string/add_to_cart"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

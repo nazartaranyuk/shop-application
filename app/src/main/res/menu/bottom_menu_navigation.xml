@@ -9,8 +9,8 @@
         android:id="@+id/exploreFragment"/>
     <item android:title="@string/favourite"
         android:icon="@drawable/ic_favourite"
-        android:id="@+id/favourite_menu"/>
+        android:id="@+id/favoriteFragment"/>
     <item android:title="@string/account"
         android:icon="@drawable/ic_account"
-        android:id="@+id/account_menu"/>
+        android:id="@+id/accountFragment"/>
 </menu>

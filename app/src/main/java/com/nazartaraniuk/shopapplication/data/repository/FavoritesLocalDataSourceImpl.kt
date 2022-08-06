@@ -15,8 +15,9 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
     private val mapper: ApiResponseMapper
 ) : FavoritesLocalDataSource {
 
-    override suspend fun loadAllFavorites(): Flow<List<ProductItem>> = withContext(dispatcher) {
-        return@withContext favoritesDao.getFavorites().map { list ->
+    override suspend fun loadAllFavorites(): Flow<List<ProductItem>> {
+        val favoritesFlow = favoritesDao.getFavorites()
+        return favoritesFlow.map { list ->
             list.map { item ->
                 mapper.toProductItem(item)
             }
