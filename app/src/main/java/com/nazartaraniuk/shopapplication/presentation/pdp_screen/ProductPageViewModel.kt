@@ -31,7 +31,7 @@ class ProductPageViewModel @Inject constructor(
     private val _loadingState = MutableLiveData<ProductPageViewModelState<ProductItemModel>>()
     val loadingState: LiveData<ProductPageViewModelState<ProductItemModel>> get() = _loadingState
 
-    val mockItem = ProductItemModel(
+    private val mockItem = ProductItemModel(
         category = "",
         description = "",
         id = 0,

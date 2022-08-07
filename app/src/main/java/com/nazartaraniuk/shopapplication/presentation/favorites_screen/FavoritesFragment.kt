@@ -11,6 +11,7 @@ import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentFavoritesBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
 import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
+import com.nazartaraniuk.shopapplication.presentation.adapters.ProductItemAdapterDelegate
 import com.nazartaraniuk.shopapplication.presentation.adapters.ProductsListGridAdapterDelegate
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
@@ -26,7 +27,8 @@ class FavoritesFragment : Fragment() {
     lateinit var viewModel: FavoritesFragmentViewModel
 
     private val adapterManager = AdapterDelegatesManager(
-        ProductsListGridAdapterDelegate()
+        ProductItemAdapterDelegate(),
+        ProductsListGridAdapterDelegate(),
     )
     private val adapter = DelegationAdapter(
         adapterManager
