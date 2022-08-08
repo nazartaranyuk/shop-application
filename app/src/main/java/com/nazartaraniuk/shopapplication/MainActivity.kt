@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
         val navGraphIds = listOf(
             R.navigation.home_nav_graph,
             R.navigation.favorites_nav_graph,
-            R.navigation.explore_nav_graph
+            R.navigation.explore_nav_graph,
+            R.navigation.account_nav_graph
         )
 
         bottomNavigationView.setupWithNavController(

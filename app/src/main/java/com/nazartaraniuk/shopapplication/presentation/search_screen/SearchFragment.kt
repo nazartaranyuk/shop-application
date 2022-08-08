@@ -15,6 +15,8 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesM
 import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
 import com.nazartaraniuk.shopapplication.presentation.adapters.ProductItemAdapterDelegate
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
+import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
+import com.nazartaraniuk.shopapplication.presentation.di.SearchSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
@@ -29,39 +31,46 @@ class SearchFragment : Fragment(), MainContract.View {
     private val searchAdapter by lazy {
         DelegationAdapter(adapterManager)
     }
-    private lateinit var binding: FragmentSearchBinding
+    private var binding: FragmentSearchBinding? = null
     override fun onStart() {
         super.onStart()
         presenter.getAllData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     @Inject
     lateinit var presenter: SearchFragmentPresenter
-
+    lateinit var searchSubcomponent: SearchSubcomponent
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().application.getComponent().inject(this)
+        setUpComponent()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater)
         presenter.attachView(this)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setAdapter(
-            binding.rvSearchList,
-            searchAdapter,
-            GridLayoutManager(requireActivity(), 2)
-        )
+        binding?.rvSearchList?.let { recyclerView ->
+            setAdapter(
+                recyclerView,
+                searchAdapter,
+                GridLayoutManager(requireActivity(), 2)
+            )
+        }
     }
 
     override fun displayData(list: List<ProductItemModel>) {
-        binding.etSearchField.addTextChangedListener(object : TextWatcher {
+        binding?.etSearchField?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -73,11 +82,17 @@ class SearchFragment : Fragment(), MainContract.View {
         })
     }
 
-
+    private fun setUpComponent() {
+        searchSubcomponent =
+            (requireActivity().application as MainApplication)
+                .appComponent
+                .searchSubcomponent()
+                .build()
+        searchSubcomponent.inject(this)
+    }
 
     override fun displayError(message: String) {
         DialogError(message)
     }
-
 
 }

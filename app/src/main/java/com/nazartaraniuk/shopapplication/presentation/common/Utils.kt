@@ -1,8 +1,10 @@
 package com.nazartaraniuk.shopapplication.presentation.common
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +59,13 @@ private fun loadImage(imageView: ImageView, imageUrl: String) {
         .fit()
         .error(R.drawable.ic_launcher_foreground)
         .into(imageView)
+}
+
+fun buttonAnimation(view: View, context: Context) {
+    val scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up)
+    val scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down)
+    view.startAnimation(scaleUp)
+    view.startAnimation(scaleDown)
 }
 
 fun setUpInterface(model: ProductItemModel, binding: FragmentProductPageBinding) = with(binding) {

@@ -3,4 +3,7 @@
     <style name="RoundedCorners" parent="">
         <item name="cornerSize">17%</item>
     </style>
+    <style name="CircleShape" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "882380675956",
+    "project_id": "shop-application-nazartaraniuk",
+    "storage_bucket": "shop-application-nazartaraniuk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882380675956:android:b876171b513efdace06a21",
+        "android_client_info": {
+          "package_name": "com.nazartaraniuk.shopapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "882380675956-vkpod4ejj9sf2rtv1a3a1q47qhggn6l5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8imrb3Ibfv5Ti85-d1dDCYBGOXhME_wg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "882380675956-vkpod4ejj9sf2rtv1a3a1q47qhggn6l5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

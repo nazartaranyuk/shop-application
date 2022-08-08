@@ -16,16 +16,18 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.ProductsListGridA
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
+import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
+import com.nazartaraniuk.shopapplication.presentation.di.FavoriteSubcomponent
+import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
 
-    private lateinit var binding: FragmentFavoritesBinding
-
     @Inject
     lateinit var viewModel: FavoritesFragmentViewModel
-
+    private lateinit var favoriteSubcomponent: FavoriteSubcomponent
+    private var binding: FragmentFavoritesBinding? = null
     private val adapterManager = AdapterDelegatesManager(
         ProductItemAdapterDelegate(),
         ProductsListGridAdapterDelegate(),
@@ -36,25 +38,36 @@ class FavoritesFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().application.getComponent().inject(this)
+        setUpComponent()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentFavoritesBinding.inflate(layoutInflater)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
-        setAdapter(
-            binding.rvFavouritesList,
-            adapter,
-            GridLayoutManager(requireActivity(), 2)
-        )
+        binding?.rvFavouritesList?.let { recyclerView ->
+            setAdapter(
+                recyclerView,
+                adapter,
+                GridLayoutManager(requireActivity(), 2)
+            )
+        }
+    }
+
+    private fun setUpComponent() {
+        favoriteSubcomponent =
+            (requireActivity().application as MainApplication)
+                .appComponent
+                .favoritesSubcomponent()
+                .build()
+        favoriteSubcomponent.inject(this)
     }
 
     private fun subscribeToLiveData() = with(viewModel) {

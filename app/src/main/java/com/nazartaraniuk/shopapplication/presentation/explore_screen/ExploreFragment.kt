@@ -12,12 +12,17 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
+import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
+import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
 
-    private lateinit var binding: FragmentExploreBinding
+    @Inject
+    lateinit var viewModel: ExploreFragmentViewModel
+    private lateinit var exploreSubcomponent: ExploreSubcomponent
+    private var binding: FragmentExploreBinding? = null
     private val adapterManager = AdapterDelegatesManager(
         CategoriesListSmallAdapterDelegate(),
         ProductItemAdapterDelegate(),
@@ -25,20 +30,17 @@ class ExploreFragment : Fragment() {
     )
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
-    @Inject
-    lateinit var viewModel: ExploreFragmentViewModel
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().application.getComponent().inject(this)
+        setUpComponent()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentExploreBinding.inflate(layoutInflater)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,12 +51,19 @@ class ExploreFragment : Fragment() {
                 return false
             }
         }
-        setAdapter(
-            binding.rvRootList,
-            rootAdapter,
-            linearLayoutManager
-        )
+        binding?.rvRootList?.let { recyclerView ->
+            setAdapter(
+                recyclerView,
+                rootAdapter,
+                linearLayoutManager
+            )
+        }
         subscribeToLiveData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     private fun subscribeToLiveData() = with(viewModel) {
@@ -74,7 +83,16 @@ class ExploreFragment : Fragment() {
 
         loadingState.observe(viewLifecycleOwner) {
             rootAdapter.setItems(it.items)
-            binding.pbLoading.visibility = it.visibility
+            binding?.pbLoading?.visibility = it.visibility
         }
+    }
+
+    private fun setUpComponent() {
+        exploreSubcomponent =
+            (requireActivity().application as MainApplication)
+                .appComponent
+                .exploreSubcomponent()
+                .build()
+        exploreSubcomponent.inject(this)
     }
 }

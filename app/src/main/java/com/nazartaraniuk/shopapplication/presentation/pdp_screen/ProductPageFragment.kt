@@ -6,44 +6,53 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.navArgs
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentProductPageBinding
 import com.nazartaraniuk.shopapplication.presentation.common.Events
+import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setUpInterface
+import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
+import com.nazartaraniuk.shopapplication.presentation.di.ProductPageSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class ProductPageFragment : Fragment() {
 
-    private lateinit var binding: FragmentProductPageBinding
+    private var binding: FragmentProductPageBinding? = null
     private val args: ProductPageFragmentArgs by navArgs()
-
+    private lateinit var productPageSubcomponent: ProductPageSubcomponent
     @Inject
     lateinit var viewModel: ProductPageViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().application.getComponent().inject(this)
+        setUpComponent()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentProductPageBinding.inflate(layoutInflater)
-        return binding.root
+        setUpComponent()
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getProductPageInformation(args.id)
         subscribeToLiveData()
+    }
+
+    private fun setUpComponent() {
+        productPageSubcomponent =
+            (requireActivity().application as MainApplication)
+                .appComponent
+                .productPageSubcomponent()
+                .build()
+        productPageSubcomponent.inject(this)
     }
 
     private fun subscribeToLiveData() = with(viewModel) {
@@ -59,11 +68,14 @@ class ProductPageFragment : Fragment() {
             }
         }
         loadingState.observe(viewLifecycleOwner) { state ->
-            setUpInterface(state.item, binding)
-            binding.ivAddToFavorites.setOnClickListener {
+            binding?.let { binding -> setUpInterface(state.item, binding) }
+            binding?.ivAddToFavorites?.setOnClickListener {
+                buttonAnimation(it, requireActivity())
+                it.setBackgroundResource(R.drawable.ic_favorites_checked)
                 viewModel.saveFavorite(state.item)
+
             }
-            binding.pbLoading.visibility = state.visibility
+            binding?.pbLoading?.visibility = state.visibility
         }
     }
 

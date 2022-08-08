@@ -14,7 +14,7 @@ interface BindModule {
     fun bindRepository(repository: ProductsRepositoryImpl) : ProductsRepository
 
     @Binds
-    fun bindDataSource(dataSource: ProductsRemoteDataSourceImpl) : ProductsRemoteDataSource
+    fun bindRemoteDataSource(dataSource: ProductsRemoteDataSourceImpl) : ProductsRemoteDataSource
 
     @Binds
     fun bindLocalDataSource(dataSource: FavoritesLocalDataSourceImpl) : FavoritesLocalDataSource

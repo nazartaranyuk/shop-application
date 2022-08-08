@@ -44,7 +44,7 @@ class ProductsListGridAdapterDelegate : AdapterDelegate<DisplayableItem> {
                 adapter,
                 GridLayoutManager(
                     binding.root.context,
-                    2
+                    2,
                 )
             )
         }

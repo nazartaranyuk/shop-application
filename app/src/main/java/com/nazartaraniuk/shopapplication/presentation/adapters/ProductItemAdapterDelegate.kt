@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ProductItemBinding
 import com.nazartaraniuk.shopapplication.databinding.TrendingProductItemBinding
+import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragmentDirections
 import com.squareup.picasso.Picasso
@@ -46,6 +47,7 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
             binding.root.setOnClickListener {
                 val navController = Navigation.findNavController(it)
                 val bundle = bundleOf("id" to model.id)
+                buttonAnimation(it, binding.root.context)
                 navController.navigate(R.id.action_global_productPageFragment, bundle)
             }
         }

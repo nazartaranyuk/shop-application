@@ -5,6 +5,10 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdk 32
 
@@ -74,6 +78,8 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.0'
     // Skeleton layout animation
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-    // Like button
-
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.3.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 }

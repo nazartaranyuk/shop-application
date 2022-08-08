@@ -20,7 +20,6 @@ class RoomModule {
     fun provideDao(roomDatabase: FavoritesDatabase) : FavoritesDao = roomDatabase.getFavoritesDao()
 
     @Provides
-    @Singleton
     fun provideDatabase(context: Context): FavoritesDatabase = Room.databaseBuilder(
         context,
         FavoritesDatabase::class.java,

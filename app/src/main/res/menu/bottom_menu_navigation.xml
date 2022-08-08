@@ -12,5 +12,5 @@
         android:id="@+id/favorites_nav_graph"/>
     <item android:title="@string/account"
         android:icon="@drawable/ic_account"
-        android:id="@+id/accountFragment"/>
+        android:id="@+id/account_nav_graph"/>
 </menu>

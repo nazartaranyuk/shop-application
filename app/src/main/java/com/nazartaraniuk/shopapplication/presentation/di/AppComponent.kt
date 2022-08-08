@@ -1,8 +1,6 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
 import android.app.Application
-import android.content.Context
-import androidx.fragment.app.Fragment
 import com.nazartaraniuk.shopapplication.presentation.explore_screen.ExploreFragment
 import com.nazartaraniuk.shopapplication.presentation.favorites_screen.FavoritesFragment
 import com.nazartaraniuk.shopapplication.presentation.home_screen.HomeFragment
@@ -10,7 +8,6 @@ import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFrag
 import com.nazartaraniuk.shopapplication.presentation.search_screen.SearchFragment
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Provides
 import javax.inject.Singleton
 
 @Component(modules=[
@@ -18,17 +15,18 @@ import javax.inject.Singleton
     AppModule::class,
     ViewModelModule::class,
     BindModule::class,
+    AppSubcomponentsModule::class,
     UtilsModule::class,
     RoomModule::class
 ])
 @Singleton
 interface AppComponent {
 
-    fun inject(fragment: HomeFragment)
-    fun inject(fragment: SearchFragment)
-    fun inject(fragment: ExploreFragment)
-    fun inject(fragment: ProductPageFragment)
-    fun inject(fragment: FavoritesFragment)
+    fun homeSubcomponent() : HomeSubcomponent.Builder
+    fun exploreSubcomponent(): ExploreSubcomponent.Builder
+    fun favoritesSubcomponent(): FavoriteSubcomponent.Builder
+    fun productPageSubcomponent(): ProductPageSubcomponent.Builder
+    fun searchSubcomponent() : SearchSubcomponent.Builder
 
     @Component.Builder
     interface ComponentBuilder {

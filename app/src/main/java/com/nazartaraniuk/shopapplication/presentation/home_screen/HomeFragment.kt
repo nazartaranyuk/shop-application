@@ -14,7 +14,8 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
-import com.nazartaraniuk.shopapplication.presentation.di.getComponent
+import com.nazartaraniuk.shopapplication.presentation.di.HomeSubcomponent
+import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import javax.inject.Inject
 
 
@@ -22,7 +23,8 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: HomeFragmentViewModel
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var homeSubcomponent: HomeSubcomponent
+    private var binding: FragmentHomeBinding? = null
     private val adapterManager by lazy {
         AdapterDelegatesManager(
             ImageItemAdapterDelegate(),
@@ -39,31 +41,47 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        return binding.root
+        return binding?.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().application.getComponent().inject(this)
+        setUpComponent()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
         setUpListeners()
-        setAdapter(
-            binding.rvRootList, rootAdapter, LinearLayoutManager(
-                requireActivity(),
-                LinearLayoutManager.VERTICAL,
-                false
+        binding?.rvRootList?.let { recyclerView ->
+            setAdapter(
+                recyclerView, rootAdapter, LinearLayoutManager(
+                    requireActivity(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
             )
-        )
+        }
+    }
+
+    private fun setUpComponent() {
+        homeSubcomponent =
+            (requireActivity().application as MainApplication)
+                .appComponent
+                .homeSubcomponent()
+                .build()
+        homeSubcomponent.inject(this)
     }
 
     private fun setUpListeners() {
-        binding.etSearchField.setOnClickListener {
+        binding?.etSearchField?.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
         }
     }
@@ -78,15 +96,16 @@ class HomeFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
-                    binding.shimmerAnimationLoading.visibility = it.visibility
-                    binding.rvRootList.visibility = it.visibility
+                    binding?.shimmerAnimationLoading?.visibility = it.visibility
+                    binding?.rvRootList?.visibility = it.visibility
                 }
+                else -> {}
             }
         }
         loadingState.observe(viewLifecycleOwner) {
             rootAdapter.setItems(it.items)
-            binding.shimmerAnimationLoading.visibility = it.animationVisibility
-            binding.rvRootList.visibility = it.interfaceVisibility
+            binding?.shimmerAnimationLoading?.visibility = it.animationVisibility
+            binding?.rvRootList?.visibility = it.interfaceVisibility
         }
     }
 }

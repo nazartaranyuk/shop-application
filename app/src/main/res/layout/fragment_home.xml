@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_marginTop="5dp"
         android:id="@+id/shimmer_animation_loading"
         app:layout_constraintTop_toBottomOf="@id/et_search_field"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nazartaraniuk.shopapplication.MainActivity
-import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ActivitySplashBinding
 
 @SuppressLint("CustomSplashScreen")
