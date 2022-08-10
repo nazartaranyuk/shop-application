@@ -38,4 +38,8 @@ class ProductsRepositoryImpl @Inject constructor(
         return localDataSource.insertToDatabase(mapper.toProductItem(item))
     }
 
+    override suspend fun deleteFromFavorites(item: ProductItem) {
+        return localDataSource.deleteFromDatabase(item)
+    }
+
 }

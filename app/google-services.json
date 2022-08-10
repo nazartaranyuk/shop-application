@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "882380675956-00b2fnnhtk996luuk6trt9oetnah0e3m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nazartaraniuk.shopapplication",
+            "certificate_hash": "e2a19daa5a1517082b0bda5b6d0d9236ee1ab42c"
+          }
+        },
+        {
           "client_id": "882380675956-vkpod4ejj9sf2rtv1a3a1q47qhggn6l5.apps.googleusercontent.com",
           "client_type": 3
         }

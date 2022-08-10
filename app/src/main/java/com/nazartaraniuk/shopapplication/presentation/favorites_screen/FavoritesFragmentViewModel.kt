@@ -34,7 +34,7 @@ class FavoritesFragmentViewModel @Inject constructor(
                     }
                     _loadingState.value = FavoritesViewModelState(productModelList, View.GONE)
                 } else {
-                    _errorAction.value = Events.Error("Can't load items from db", View.GONE)
+                    _errorAction.value = Events.Error("You haven't added to favorites yet", View.GONE)
                 }
             }
         }

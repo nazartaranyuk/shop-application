@@ -15,4 +15,5 @@ interface ProductsRepository {
 
     suspend fun fetchFavorites(): Flow<List<ProductItem>>
     suspend fun addToFavorites(item: ProductItemEntity)
+    suspend fun deleteFromFavorites(item: ProductItem)
 }

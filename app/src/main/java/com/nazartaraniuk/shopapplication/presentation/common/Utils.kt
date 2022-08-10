@@ -53,7 +53,7 @@ fun createErrorSnackBar(view: View, layoutInflater: LayoutInflater, text: String
     }
 }
 
-private fun loadImage(imageView: ImageView, imageUrl: String) {
+fun loadImage(imageView: ImageView, imageUrl: String) {
     Picasso.get()
         .load(imageUrl)
         .fit()

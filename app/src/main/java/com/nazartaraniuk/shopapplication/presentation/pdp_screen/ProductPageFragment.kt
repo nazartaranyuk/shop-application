@@ -15,7 +15,6 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setUpInterface
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.ProductPageSubcomponent
-import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
 class ProductPageFragment : Fragment() {
@@ -69,13 +68,21 @@ class ProductPageFragment : Fragment() {
         }
         loadingState.observe(viewLifecycleOwner) { state ->
             binding?.let { binding -> setUpInterface(state.item, binding) }
-            binding?.ivAddToFavorites?.setOnClickListener {
-                buttonAnimation(it, requireActivity())
-                it.setBackgroundResource(R.drawable.ic_favorites_checked)
-                viewModel.saveFavorite(state.item)
-
+            val heartButton = binding?.ivAddToFavorites
+            heartButton?.visibility = state.heartButtonVisibility
+            heartButton?.setBackgroundResource(state.resourceImg)
+            heartButton?.setOnClickListener {
+                if (state.isFavorite) {
+                    buttonAnimation(it, requireActivity())
+                    it.setBackgroundResource(R.drawable.ic_favorites_unchecked)
+                    viewModel.deleteFromFavorites(state.item)
+                } else {
+                    buttonAnimation(it, requireActivity())
+                    it.setBackgroundResource(R.drawable.ic_favorites_checked)
+                    viewModel.saveFavorite(state.item)
+                }
             }
-            binding?.pbLoading?.visibility = state.visibility
+            binding?.pbLoading?.visibility = state.loadingVisibility
         }
     }
 

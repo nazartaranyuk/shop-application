@@ -27,4 +27,8 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
     override suspend fun insertToDatabase(item: ProductItem) = withContext(dispatcher) {
         favoritesDao.addToFavorites(mapper.toProductItemEntity(item))
     }
+
+    override suspend fun deleteFromDatabase(item: ProductItem) {
+        favoritesDao.deleteFavorite(mapper.toProductItemEntity(item))
+    }
 }
