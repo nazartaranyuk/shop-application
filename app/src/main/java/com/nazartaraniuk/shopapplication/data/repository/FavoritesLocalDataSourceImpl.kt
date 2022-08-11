@@ -31,4 +31,9 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
     override suspend fun deleteFromDatabase(item: ProductItem) {
         favoritesDao.deleteFavorite(mapper.toProductItemEntity(item))
     }
+
+    override suspend fun isAdded(id: Int): Boolean {
+        val item = favoritesDao.getItemById(id)
+        return item != null
+    }
 }

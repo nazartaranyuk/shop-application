@@ -42,4 +42,8 @@ class ProductsRepositoryImpl @Inject constructor(
         return localDataSource.deleteFromDatabase(item)
     }
 
+    override suspend fun isAdded(id: Int): Boolean {
+        return localDataSource.isAdded(id)
+    }
+
 }

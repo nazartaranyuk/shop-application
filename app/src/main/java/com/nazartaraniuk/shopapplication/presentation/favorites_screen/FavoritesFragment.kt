@@ -81,6 +81,7 @@ class FavoritesFragment : Fragment() {
                         it.message
                     )
                 }
+                else -> {}
             }
         }
 

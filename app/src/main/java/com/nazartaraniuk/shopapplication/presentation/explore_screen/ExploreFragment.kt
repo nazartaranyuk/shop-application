@@ -78,6 +78,7 @@ class ExploreFragment : Fragment() {
                     )
 //                    binding.pbLoading.visibility = it.visibility
                 }
+                else -> {}
             }
         }
 

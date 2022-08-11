@@ -8,4 +8,5 @@ interface FavoritesLocalDataSource {
     suspend fun loadAllFavorites(): Flow<List<ProductItem>>
     suspend fun insertToDatabase(item: ProductItem)
     suspend fun deleteFromDatabase(item: ProductItem)
+    suspend fun isAdded(id: Int): Boolean
 }

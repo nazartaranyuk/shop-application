@@ -64,13 +64,14 @@ class ProductPageFragment : Fragment() {
                         it.message
                     )
                 }
+                else -> {}
             }
         }
         loadingState.observe(viewLifecycleOwner) { state ->
             binding?.let { binding -> setUpInterface(state.item, binding) }
             val heartButton = binding?.ivAddToFavorites
             heartButton?.visibility = state.heartButtonVisibility
-            heartButton?.setBackgroundResource(state.resourceImg)
+            heartButton?.setBackgroundResource(state.resourceImg.resource)
             heartButton?.setOnClickListener {
                 if (state.isFavorite) {
                     buttonAnimation(it, requireActivity())
