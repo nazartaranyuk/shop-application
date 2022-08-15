@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
@@ -28,20 +29,21 @@ class SignInActivity : AppCompatActivity() {
     private var binding: ActivitySigninBinding? = null
     private lateinit var signIn: ActivityResultLauncher<Intent>
     private lateinit var auth: FirebaseAuth
-    private val googleSignInOptions by lazy {
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-    }
-    private val googleSignInClient by lazy {
-        GoogleSignIn.getClient(this, googleSignInOptions)
-    }
+
+    private lateinit var googleSignInOptions: GoogleSignInOptions
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         auth = Firebase.auth
+        googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+
+
         signIn = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
@@ -71,6 +73,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    // launch google accounts intent
     private fun signInWithGoogle() {
         signIn.launch(googleSignInClient.signInIntent)
     }
@@ -85,7 +88,8 @@ class SignInActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(id, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.d("SignInActivity", "Sign in successful")
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
             } else {
                 Log.d("SignInActivity", "Sign in error")
             }

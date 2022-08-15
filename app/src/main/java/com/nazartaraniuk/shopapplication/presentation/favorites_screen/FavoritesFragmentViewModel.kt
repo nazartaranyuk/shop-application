@@ -24,7 +24,7 @@ class FavoritesFragmentViewModel @Inject constructor(
     private val _loadingState = MutableLiveData<FavoritesViewModelState<DisplayableItem>>()
     val loadingState: LiveData<FavoritesViewModelState<DisplayableItem>> get() = _loadingState
 
-    init {
+    fun getItemsFromDatabase() {
         viewModelScope.launch {
             _loadingState.value = FavoritesViewModelState(listOf(), View.VISIBLE)
             getSavedProductsFromDatabaseUseCase().collect { list ->

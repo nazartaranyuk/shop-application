@@ -6,7 +6,8 @@ import dagger.Module
     subcomponents = [
         HomeSubcomponent::class,
         ExploreSubcomponent::class,
-        FavoriteSubcomponent::class
+        FavoriteSubcomponent::class,
+        AccountSubcomponent::class
     ]
 )
 class AppSubcomponentsModule

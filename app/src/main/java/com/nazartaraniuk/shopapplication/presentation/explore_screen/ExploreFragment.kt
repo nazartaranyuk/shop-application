@@ -14,7 +14,6 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
-import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
@@ -25,7 +24,7 @@ class ExploreFragment : Fragment() {
     private var binding: FragmentExploreBinding? = null
     private val adapterManager = AdapterDelegatesManager(
         CategoriesListSmallAdapterDelegate(),
-        ProductItemAdapterDelegate(),
+        TrendingItemAdapterDelegate(),
         ProductsListGridAdapterDelegate()
     )
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }

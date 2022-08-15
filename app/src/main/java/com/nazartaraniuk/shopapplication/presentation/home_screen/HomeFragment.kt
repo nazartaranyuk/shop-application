@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
             CategoryItemAdapterDelegate(),
             CategoryListAdapterDelegate(),
             TrendingListAdapterDelegate(),
-            ProductItemAdapterDelegate()
+            TrendingItemAdapterDelegate()
         )
     }
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }

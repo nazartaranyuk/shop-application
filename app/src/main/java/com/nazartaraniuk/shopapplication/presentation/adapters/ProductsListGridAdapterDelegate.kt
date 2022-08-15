@@ -3,11 +3,9 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.ProductListBinding
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
 
 class ProductsListGridAdapterDelegate : AdapterDelegate<DisplayableItem> {

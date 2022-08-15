@@ -13,11 +13,10 @@ import com.nazartaraniuk.shopapplication.databinding.FragmentSearchBinding
 import com.nazartaraniuk.shopapplication.presentation.dialogs.DialogError
 import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
 import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
-import com.nazartaraniuk.shopapplication.presentation.adapters.ProductItemAdapterDelegate
+import com.nazartaraniuk.shopapplication.presentation.adapters.TrendingItemAdapterDelegate
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.SearchSubcomponent
-import com.nazartaraniuk.shopapplication.presentation.di.getComponent
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class SearchFragment : Fragment(), MainContract.View {
 
     private val adapterManager by lazy {
         AdapterDelegatesManager(
-            ProductItemAdapterDelegate()
+            TrendingItemAdapterDelegate()
         )
     }
     private val searchAdapter by lazy {

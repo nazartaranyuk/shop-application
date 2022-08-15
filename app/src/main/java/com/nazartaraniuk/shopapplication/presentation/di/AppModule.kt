@@ -2,6 +2,7 @@ package com.nazartaraniuk.shopapplication.presentation.di
 
 import android.app.Application
 import android.content.Context
+import com.nazartaraniuk.shopapplication.presentation.common.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher

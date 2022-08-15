@@ -1,6 +1,7 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
 import android.app.Application
+import com.nazartaraniuk.shopapplication.MainActivity
 import com.nazartaraniuk.shopapplication.presentation.explore_screen.ExploreFragment
 import com.nazartaraniuk.shopapplication.presentation.favorites_screen.FavoritesFragment
 import com.nazartaraniuk.shopapplication.presentation.home_screen.HomeFragment
@@ -27,6 +28,8 @@ interface AppComponent {
     fun favoritesSubcomponent(): FavoriteSubcomponent.Builder
     fun productPageSubcomponent(): ProductPageSubcomponent.Builder
     fun searchSubcomponent() : SearchSubcomponent.Builder
+    fun accountSubcomponent() : AccountSubcomponent.Builder
+    fun inject(activity: MainActivity)
 
     @Component.Builder
     interface ComponentBuilder {

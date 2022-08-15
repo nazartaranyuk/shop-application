@@ -51,11 +51,22 @@
         android:elevation="10dp"
         android:minHeight="48dp"
         android:textColor="@color/orange"
-        android:text="Send notifications"
+        android:text="@string/send_notifications"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_account_first_name"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    <TextView
+        android:id="@+id/tv_log_out"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_send_notifications"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/gray"
+        android:text="@string/log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

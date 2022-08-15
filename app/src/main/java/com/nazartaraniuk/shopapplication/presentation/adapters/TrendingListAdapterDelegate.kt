@@ -35,7 +35,7 @@ class TrendingListAdapterDelegate:
         fun bind(model: ProductListModel) {
 
             val adapterManager = AdapterDelegatesManager(
-                ProductItemAdapterDelegate()
+                TrendingItemAdapterDelegate()
             )
 
             val adapter = DelegationAdapter(adapterManager)

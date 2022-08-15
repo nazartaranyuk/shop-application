@@ -64,8 +64,8 @@ fun loadImage(imageView: ImageView, imageUrl: String) {
 fun buttonAnimation(view: View, context: Context) {
     val scaleUp = AnimationUtils.loadAnimation(context, R.anim.scale_up)
     val scaleDown = AnimationUtils.loadAnimation(context, R.anim.scale_down)
-    view.startAnimation(scaleUp)
     view.startAnimation(scaleDown)
+    view.startAnimation(scaleUp)
 }
 
 fun setUpInterface(model: ProductItemModel, binding: FragmentProductPageBinding) = with(binding) {
