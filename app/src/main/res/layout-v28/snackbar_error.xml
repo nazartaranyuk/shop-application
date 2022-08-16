@@ -31,13 +31,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/please_connect_to_the_internet"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/main_color"
                     android:textFontWeight="800"
                     android:textSize="25sp" />
                 <TextView
                     android:id="@+id/tv_snackbar_error"
                     tools:text="Error has occurred"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/main_color"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

@@ -9,11 +9,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="item_text_color">#FF000000</color>
     <color name="black">#FF000000</color>
     <color name="dark">#181725</color>
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#FFD1D1D1</color>
-    <color name="orange">#FF7322</color>
+    <color name="main_color">#FF7322</color>
     <color name="gray">#7C7C7C</color>
     <color name="dark_gray">#323232</color>
+    <color name="launcher_background_color">#BF6900</color>
+    <color name="launcher_foreground_android_color">#BE1616</color>
 </resources>

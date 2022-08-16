@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:textColor="@color/orange"
+        android:textColor="@color/main_color"
         android:textFontWeight="1000"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:numStars="5"
-        android:progressTint="@color/orange"
+        android:progressTint="@color/main_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_product_item_category"
         tools:rating="3.3" />

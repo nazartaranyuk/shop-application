@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
@@ -42,17 +43,16 @@ class CategoryItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
             when (element.category) {
                 // TODO move this magic words to companion object
-                "Electronics" -> loadImage(binding.ivCategoryItem, R.drawable.electronics)
-                "Jewelery" -> loadImage(binding.ivCategoryItem, R.drawable.jewerly)
-                "Men's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.mensclothing)
-                "Women's clothing" -> loadImage(binding.ivCategoryItem, R.drawable.womensclothing)
+                "Electronics" -> loadImage(binding.ivCategoryIcon, R.drawable.ic_electronics)
+                "Jewelery" -> loadImage(binding.ivCategoryIcon, R.drawable.ic_jewerly)
+                "Men's clothing" -> loadImage(binding.ivCategoryIcon, R.drawable.ic_men_clothing)
+                "Women's clothing" -> loadImage(binding.ivCategoryIcon, R.drawable.ic_women_clothing)
             }
         }
 
-        private fun loadImage(imageView: ImageView, @DrawableRes image: Int) {
-            Picasso.get()
+        private fun loadImage(imageView: ImageView, image: Int) {
+            Glide.with(binding.root.context)
                 .load(image)
-                .fit()
                 .error(R.drawable.ic_launcher_foreground)
                 .into(imageView)
         }

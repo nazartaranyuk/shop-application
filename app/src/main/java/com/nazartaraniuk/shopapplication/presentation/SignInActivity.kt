@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -50,8 +51,8 @@ class SignInActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
                     firebaseAuthWithGoogle(account.idToken!!)
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
+                } else {
+                    Toast.makeText(this, account.toString(), Toast.LENGTH_LONG)
                 }
             } catch (e: ApiException) {
                 Log.d("SignInActivity", "Something went wrong")

@@ -50,7 +50,7 @@
         android:layout_marginTop="84dp"
         android:elevation="10dp"
         android:minHeight="48dp"
-        android:textColor="@color/orange"
+        android:textColor="@color/main_color"
         android:text="@string/send_notifications"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

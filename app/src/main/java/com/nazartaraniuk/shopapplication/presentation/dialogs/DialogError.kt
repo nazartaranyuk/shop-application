@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.nazartaraniuk.shopapplication.R
 
+@Deprecated("Dialog is too archaic") // TODO remove this
 class DialogError(private val message: String) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

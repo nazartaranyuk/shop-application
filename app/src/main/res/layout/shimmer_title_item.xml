@@ -22,6 +22,6 @@
         android:background="@color/gray"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:textColor="@color/orange"
+        android:textColor="@color/main_color"
         android:textSize="20sp" />
 </LinearLayout>

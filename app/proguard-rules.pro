@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.nazartaraniuk.shopapplication.presentation.models.* { *; }
+-keep class com.nazartaraniuk.shopapplication.domain.entities.* { *; }
+-keep class com.nazartaraniuk.shopapplication.data.entities.* { *; }

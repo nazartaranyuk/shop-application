@@ -23,6 +23,6 @@
         android:layout_weight="1"
         android:gravity="end"
         android:text="@string/see_all"
-        android:textColor="@color/orange"
+        android:textColor="@color/main_color"
         android:textSize="20sp" />
 </LinearLayout>
