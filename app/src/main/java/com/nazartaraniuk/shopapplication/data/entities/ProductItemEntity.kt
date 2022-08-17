@@ -14,5 +14,6 @@ data class ProductItemEntity(
     val price: Double,
     @Embedded
     val rating: Rating,
-    val title: String
+    val title: String,
+    val test: Int = 0 // Test field for testing migrations
 )

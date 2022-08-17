@@ -37,15 +37,15 @@ class FavoritesDatabaseMigrationsTest {
                 execSQL(
                     """
                     INSERT INTO favorites VALUES (
-                    'Electronics',
-                    'Description',
+                    'category',
+                    'description',
                     1,
-                    'some image url',
-                    0.0,
-                    0,
+                    'image',
                     0.0,
                     'title',
-                    'new field'
+                    0,
+                    0,
+                    0.0
                     )
                 """.trimIndent()
                 )
