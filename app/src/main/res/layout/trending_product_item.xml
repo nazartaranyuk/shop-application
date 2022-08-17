@@ -14,7 +14,8 @@
         android:id="@+id/iv_product_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:elevation="7dp"
+        android:layout_margin="3dp"
+        android:elevation="2dp"
         app:shapeAppearance="@style/RoundedCorners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,10 +49,10 @@
 
     <TextView
         android:id="@+id/tv_trending_item_price"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:textColor="@color/main_color"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_item_category"
         tools:text="FREE" />

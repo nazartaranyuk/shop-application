@@ -115,6 +115,6 @@
         android:layout_height="60dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/btn_add_to_cart_style"
-        android:text="@string/add_to_cart"
+        android:text="@string/order"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

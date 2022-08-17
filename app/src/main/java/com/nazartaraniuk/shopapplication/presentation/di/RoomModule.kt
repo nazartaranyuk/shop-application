@@ -3,8 +3,11 @@ package com.nazartaraniuk.shopapplication.presentation.di
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nazartaraniuk.shopapplication.data.db.FavoritesDao
 import com.nazartaraniuk.shopapplication.data.db.FavoritesDatabase
+import com.nazartaraniuk.shopapplication.data.db.MIGRATION_1_2_TEST
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
 import com.nazartaraniuk.shopapplication.data.repository.FavoritesLocalDataSource
 import com.nazartaraniuk.shopapplication.data.repository.FavoritesLocalDataSourceImpl
@@ -24,5 +27,7 @@ class RoomModule {
         context,
         FavoritesDatabase::class.java,
         "favorites_database"
-        ).build()
+        )
+        .addMigrations(MIGRATION_1_2_TEST)
+        .build()
 }

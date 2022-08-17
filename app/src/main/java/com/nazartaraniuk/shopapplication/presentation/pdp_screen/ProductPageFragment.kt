@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentProductPageBinding
@@ -43,6 +44,7 @@ class ProductPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getProductPageInformation(args.id)
         subscribeToLiveData()
+        setUpListener()
     }
 
     private fun setUpComponent() {
@@ -52,6 +54,13 @@ class ProductPageFragment : Fragment() {
                 .productPageSubcomponent()
                 .build()
         productPageSubcomponent.inject(this)
+    }
+
+    private fun setUpListener() = with(binding) {
+        this?.btnAddToCart?.setOnClickListener {
+            // TODO move word to string resources
+            Toast.makeText(requireContext(), "Okay! Wait for your product", Toast.LENGTH_LONG)
+        }
     }
 
     private fun subscribeToLiveData() = with(viewModel) {

@@ -23,4 +23,6 @@
     <string name="log_out">Log out</string>
     <string name="send_notifications">Send notifications</string>
     <string name="welcome_to_our_shop">Welcome to our shop!</string>
+    <string name="buy">Buy</string>
+    <string name="order">order</string>
 </resources>
