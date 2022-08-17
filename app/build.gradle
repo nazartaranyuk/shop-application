@@ -12,13 +12,13 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     signingConfigs {
         debug {
-            storeFile file('/home/nazartaraniuk/keys/shop-application-key.jks')
+            storeFile file('shop-application-key.jks')
             storePassword 'ha3ap2003'
             keyAlias 'key0'
             keyPassword 'ha3ap2003'
         }
         release {
-            storeFile file('/home/nazartaraniuk/keys/shop-application-key.jks')
+            storeFile file('shop-application-key.jks')
             storePassword 'ha3ap2003'
             keyPassword 'ha3ap2003'
             keyAlias 'key0'
