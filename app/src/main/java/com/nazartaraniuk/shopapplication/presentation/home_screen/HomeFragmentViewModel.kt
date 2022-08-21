@@ -38,5 +38,9 @@ class HomeFragmentViewModel @Inject constructor(
         }
     }
 
-    data class HomeViewModelState<T>(val items: List<T>, val animationVisibility: Int, val interfaceVisibility: Int)
+    data class HomeViewModelState<T>(
+        val items: List<T>,
+        val animationVisibility: Int,
+        val interfaceVisibility: Int
+    )
 }

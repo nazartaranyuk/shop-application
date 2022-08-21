@@ -42,10 +42,9 @@ class FavoritesDatabaseMigrationsTest {
                     1,
                     'image',
                     0.0,
-                    'title',
                     0,
-                    0,
-                    0.0
+                    0.0,
+                    'title'
                     )
                 """.trimIndent()
                 )
@@ -68,8 +67,8 @@ class FavoritesDatabaseMigrationsTest {
 
         runBlocking(Dispatchers.Main) {
             val favorite = favoritesDatabase.getFavoritesDao().getFavorites().first().first()
-            assertEquals("Electronics", favorite.category)
-            assertEquals("Description", favorite.description)
+            assertEquals("category", favorite.category)
+            assertEquals("description", favorite.description)
         }
     }
 

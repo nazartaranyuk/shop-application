@@ -14,6 +14,7 @@
     <action
         android:id="@+id/action_global_productPageFragment"
         app:destination="@id/productPageFragment"
+        app:popUpToInclusive="true"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@animator/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"

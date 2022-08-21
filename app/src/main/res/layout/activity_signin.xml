@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent">
         <Button
             android:id="@+id/btn_sign_up"
-            android:text="Sign up with google account"
+            android:text="@string/sign_in"
             android:drawableLeft="@drawable/ic_google_logo"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"

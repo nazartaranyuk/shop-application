@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     private val adapterManager by lazy {
         AdapterDelegatesManager(
             ImageItemAdapterDelegate(),
-            TitleItemAdapterDelegate(),
+            TitleItemAdapterDelegate(navigateToPage),
             CategoryItemAdapterDelegate(),
             CategoryListAdapterDelegate(),
             TrendingListAdapterDelegate(),
@@ -36,6 +36,10 @@ class HomeFragment : Fragment() {
         )
     }
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
+
+    private val navigateToPage: (Int) -> Unit = { link ->
+        findNavController().navigate(link)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

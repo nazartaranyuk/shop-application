@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.TitleItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.TitleItemModel
 
-class TitleItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
+class TitleItemAdapterDelegate(
+    private val navigateToPage: (Int) -> Unit
+) : AdapterDelegate<DisplayableItem> {
 
     override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
         return items[position] is TitleItemModel
@@ -31,6 +33,9 @@ class TitleItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
         fun bind(model: TitleItemModel) = with(binding) {
             tvTrendingNow.text = model.title
+            tvTrendingSeeAll.setOnClickListener {
+                navigateToPage(model.link)
+            }
         }
     }
 }

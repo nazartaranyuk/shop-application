@@ -25,4 +25,5 @@
     <string name="welcome_to_our_shop">Welcome to our shop!</string>
     <string name="buy">Buy</string>
     <string name="order">order</string>
+    <string name="sign_in">Sign up with google account</string>
 </resources>

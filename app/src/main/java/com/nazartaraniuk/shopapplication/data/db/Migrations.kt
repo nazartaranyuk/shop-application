@@ -5,6 +5,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 val MIGRATION_1_2_TEST = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE favorites ADD COLUMN test INTEGER DEFAULT 0")
+        database.execSQL("ALTER TABLE favorites ADD COLUMN test INTEGER DEFAULT 0 NOT NULL")
     }
 }

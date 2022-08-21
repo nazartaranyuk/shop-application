@@ -18,14 +18,14 @@ class AdapterDelegatesManager<T> (
 
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val delegate: AdapterDelegate<T> = delegates[viewType] ?: error(
-            "This delegate is null: $viewType"
+            "$ERROR_MSG $viewType"
         )
         return delegate.onCreateViewHolder(parent)
     }
 
     fun onBindViewHolder(items: List<T>, position: Int, holder: RecyclerView.ViewHolder) {
         val delegate: AdapterDelegate<T> = delegates[holder.itemViewType] ?: error(
-            "This delegate is null: ${holder.itemViewType}"
+            "This delegate is null ${holder.itemViewType}"
         )
         delegate.onBindViewHolder(holder, items, position)
     }
@@ -47,5 +47,9 @@ class AdapterDelegatesManager<T> (
             }
         }
         error("Cannot find delegates")
+    }
+
+    companion object {
+        const val ERROR_MSG = "This delegate is null:"
     }
 }
