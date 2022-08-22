@@ -3,8 +3,13 @@ package com.nazartaraniuk.shopapplication
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -33,8 +38,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         auth = Firebase.auth
         startShowingNotifications()
+        val isTablet = this.resources.getBoolean(R.bool.isTablet)
+        val view = layoutInflater.inflate(R.layout.fragment_account, binding?.root, false)
+        if (isTablet) setUpMasterDetailScreen(view) else setupBottomNavigation()
+
         setContentView(binding?.root)
-        setupBottomNavigation()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -88,6 +96,21 @@ class MainActivity : AppCompatActivity() {
             ExistingPeriodicWorkPolicy.KEEP,
             workRequest
         )
+    }
+
+    private fun setUpMasterDetailScreen(view: View) {
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
+
+        view.findViewById<TextView>(R.id.tv_go_to_explore).setOnClickListener {
+            navHostFragment.findNavController().navigate(R.id.action_accountFragment_to_exploreFragment)
+        }
+        view.findViewById<TextView>(R.id.tv_go_to_favorites).setOnClickListener {
+            navHostFragment.findNavController().navigate(R.id.action_accountFragment_to_favoritesFragment)
+        }
+        view.findViewById<TextView>(R.id.tv_go_to_home).setOnClickListener {
+            navHostFragment.findNavController().navigate(R.id.action_accountFragment_to_homeFragment)
+        }
     }
 
     companion object {

@@ -33,15 +33,14 @@
 
     <TextView
         android:id="@+id/tv_account_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textColor="@color/gray"
-        tools:text="lalala@email.com"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_account_first_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        tools:text="lalala@email.com" />
 
     <Switch
         android:id="@+id/switch_send_notifications"
@@ -50,8 +49,8 @@
         android:layout_marginTop="84dp"
         android:elevation="10dp"
         android:minHeight="48dp"
-        android:textColor="@color/main_color"
         android:text="@string/send_notifications"
+        android:textColor="@color/main_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_account_first_name"
@@ -59,14 +58,12 @@
 
     <TextView
         android:id="@+id/tv_log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/log_out"
+        android:textColor="@color/gray"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switch_send_notifications"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/gray"
-        android:text="@string/log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/switch_send_notifications" />
 </androidx.constraintlayout.widget.ConstraintLayout>

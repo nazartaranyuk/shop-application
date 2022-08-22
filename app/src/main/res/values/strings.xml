@@ -26,4 +26,5 @@
     <string name="buy">Buy</string>
     <string name="order">order</string>
     <string name="sign_in">Sign up with google account</string>
+    <string name="home">Home</string>
 </resources>
