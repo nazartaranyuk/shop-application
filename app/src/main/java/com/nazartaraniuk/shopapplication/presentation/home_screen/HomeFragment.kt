@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nazartaraniuk.shopapplication.R
@@ -47,7 +50,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        val isTablet = this.resources.getBoolean(R.bool.isTablet)
+        
         return binding?.root
+
     }
 
     override fun onDestroyView() {
@@ -64,6 +70,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
         setUpListeners()
+
+
+
         binding?.rvRootList?.let { recyclerView ->
             setAdapter(
                 recyclerView, rootAdapter, LinearLayoutManager(
@@ -74,6 +83,7 @@ class HomeFragment : Fragment() {
             )
         }
     }
+
 
     private fun setUpComponent() {
         homeSubcomponent =
