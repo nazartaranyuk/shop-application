@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    tools:context=".presentation.home_screen.HomeFragment">
+    tools:context=".MainActivity">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_account_avatar"
@@ -119,6 +119,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/home_nav_graph" />
+        app:navGraph="@navigation/master_details_nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

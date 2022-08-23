@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
         startShowingNotifications()
         setContentView(binding?.root)
-        setupBottomNavigation()
     }
 
     override fun onSupportNavigateUp(): Boolean {
