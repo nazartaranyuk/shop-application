@@ -2,9 +2,12 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
+import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
 
 class CategoryListAdapterDelegate :
@@ -33,20 +36,44 @@ class CategoryListAdapterDelegate :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: CategoryListModel) {
+            binding.root.removeAllViews()
 
-            val adapterManager = AdapterDelegatesManager(
-                CategoryItemAdapterDelegate()
+            val categoryBinding = CategoryItemBinding.inflate(
+                LayoutInflater.from(
+                    binding.root.context
+                )
             )
 
-            val adapter = DelegationAdapter(adapterManager)
-            adapter.setItems(model.categories)
+            model.categories.forEach {
 
-            binding.rvCategoriesList.adapter = adapter
-            binding.rvCategoriesList.layoutManager = LinearLayoutManager(
-                binding.root.context,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+                categoryBinding.tvCategoryDescription.text = it.category
+                when (it.category) {
+                    ELECTRONICS -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_electronics)
+                    JEWELERY -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_jewerly)
+                    MENS_CLOTHING -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_men_clothing)
+                    WOMENS_CLOTHING -> loadImage(
+                        categoryBinding.ivCategoryIcon,
+                        R.drawable.ic_women_clothing
+                    )
+                }
+            }
+            binding.linearLayout.addView(categoryBinding.root)
+
         }
+
+        private fun loadImage(imageView: ImageView, image: Int) {
+            Glide.with(binding.root.context)
+                .load(image)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(imageView)
+        }
+
+    }
+
+    companion object {
+        const val ELECTRONICS = "Electronics"
+        const val JEWELERY = "Jewelery"
+        const val MENS_CLOTHING = "Men's clothing"
+        const val WOMENS_CLOTHING = "Women's clothing"
     }
 }

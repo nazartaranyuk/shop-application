@@ -32,7 +32,6 @@ class HomeFragment : Fragment() {
         AdapterDelegatesManager(
             ImageItemAdapterDelegate(),
             TitleItemAdapterDelegate(navigateToPage),
-            CategoryItemAdapterDelegate(),
             CategoryListAdapterDelegate(),
             TrendingListAdapterDelegate(),
             TrendingItemAdapterDelegate()

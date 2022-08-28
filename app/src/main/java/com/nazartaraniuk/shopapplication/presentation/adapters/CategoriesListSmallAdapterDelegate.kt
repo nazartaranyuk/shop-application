@@ -11,10 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
+import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.databinding.CategorySmallItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
 
-class CategoriesListSmallAdapterDelegate() :
+class CategoriesListSmallAdapterDelegate :
     AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -40,8 +41,10 @@ class CategoriesListSmallAdapterDelegate() :
     inner class CategoryViewHolder(private val binding: CategoriesListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private val categoryItemBinding = CategorySmallItemBinding.inflate(LayoutInflater.from(binding.root.context))
+
         fun bind(model: CategoriesSmallListModel) {
-            binding.root.addView(binding.tvCategorySmallDescription)
+            binding.root.addView(categoryItemBinding.root)
         }
     }
 }
