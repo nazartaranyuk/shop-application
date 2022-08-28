@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ProductListBinding
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
@@ -37,14 +38,26 @@ class ProductsListGridAdapterDelegate : AdapterDelegate<DisplayableItem> {
             )
             val adapter = DelegationAdapter(adapterManager)
             adapter.setItems(model.productItems)
-            setAdapter(
-                binding.rvProductList,
-                adapter,
-                GridLayoutManager(
-                    binding.root.context,
-                    2,
+            val isTablet = binding.root.resources.getBoolean(R.bool.isTablet)
+            if (isTablet) {
+                setAdapter(
+                    binding.rvProductList,
+                    adapter,
+                    GridLayoutManager(
+                        binding.root.context,
+                        4,
+                    )
                 )
-            )
+            } else {
+                setAdapter(
+                    binding.rvProductList,
+                    adapter,
+                    GridLayoutManager(
+                        binding.root.context,
+                        2,
+                    )
+                )
+            }
         }
     }
 }

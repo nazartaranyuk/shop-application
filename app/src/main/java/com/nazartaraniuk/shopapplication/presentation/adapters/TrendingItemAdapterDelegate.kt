@@ -48,6 +48,7 @@ class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
                 val navController = Navigation.findNavController(it)
                 val bundle = bundleOf("id" to model.id)
                 buttonAnimation(it, binding.root.context)
+                // TODO provide here lambda
                 navController.navigate(R.id.action_global_productPageFragment, bundle)
             }
         }

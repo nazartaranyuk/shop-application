@@ -4,6 +4,8 @@
     package="com.nazartaraniuk.shopapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
 
     <application
         android:name=".presentation.di.MainApplication"
@@ -19,18 +21,24 @@
         <activity
             android:name=".presentation.SignInActivity"
             android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <service android:name=".presentation.FirebaseMessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".presentation.ProductPageService" />
     </application>
 
 </manifest>

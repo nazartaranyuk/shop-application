@@ -50,10 +50,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        val isTablet = this.resources.getBoolean(R.bool.isTablet)
-        if (isTablet) {
-            this.findNavController().setGraph(R.navigation.master_details_nav_graph)
-        }
         return binding?.root
     }
 
@@ -72,8 +68,6 @@ class HomeFragment : Fragment() {
         subscribeToLiveData()
         setUpListeners()
 
-
-
         binding?.rvRootList?.let { recyclerView ->
             setAdapter(
                 recyclerView, rootAdapter, LinearLayoutManager(
@@ -84,7 +78,6 @@ class HomeFragment : Fragment() {
             )
         }
     }
-
 
     private fun setUpComponent() {
         homeSubcomponent =

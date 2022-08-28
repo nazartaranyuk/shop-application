@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentSearchBinding
 import com.nazartaraniuk.shopapplication.presentation.dialogs.DialogError
 import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
@@ -59,13 +60,26 @@ class SearchFragment : Fragment(), MainContract.View {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding?.rvSearchList?.let { recyclerView ->
-            setAdapter(
-                recyclerView,
-                searchAdapter,
-                GridLayoutManager(requireActivity(), 2)
-            )
+        val isTablet = this.resources.getBoolean(R.bool.isTablet)
+        if (isTablet) {
+            binding?.rvSearchList?.let { recyclerView ->
+                setAdapter(
+                    recyclerView,
+                    searchAdapter,
+                    GridLayoutManager(requireActivity(), 4)
+                )
+            }
+        } else {
+            binding?.rvSearchList?.let { recyclerView ->
+                setAdapter(
+                    recyclerView,
+                    searchAdapter,
+                    GridLayoutManager(requireActivity(), 2)
+                )
+            }
         }
+
+
     }
 
     override fun displayData(list: List<ProductItemModel>) {

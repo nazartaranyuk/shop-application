@@ -47,14 +47,14 @@
         android:id="@+id/switch_send_notifications"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="22dp"
         android:elevation="10dp"
         android:minHeight="48dp"
         android:text="@string/send_notifications"
         android:textColor="@color/main_color"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_account_first_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_account_email"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <TextView
@@ -109,12 +109,11 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="@dimen/item_width" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/item_detail_nav_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline"
