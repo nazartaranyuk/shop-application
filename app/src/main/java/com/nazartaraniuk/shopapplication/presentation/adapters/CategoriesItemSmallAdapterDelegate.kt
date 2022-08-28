@@ -1,6 +1,8 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
+import android.app.Application
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
@@ -11,7 +13,9 @@ import com.nazartaraniuk.shopapplication.databinding.CategorySmallItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.squareup.picasso.Picasso
 
-class CategoriesItemSmallAdapterDelegate : AdapterDelegate<DisplayableItem> {
+class CategoriesItemSmallAdapterDelegate(
+    private val application: Application
+) : AdapterDelegate<DisplayableItem> {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -37,7 +41,6 @@ class CategoriesItemSmallAdapterDelegate : AdapterDelegate<DisplayableItem> {
     inner class CategoryViewHolder(
         private val binding: CategorySmallItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(element: CategoryItemModel) {
             binding.tvCategorySmallDescription.text = element.category
         }

@@ -31,7 +31,7 @@ class ExploreFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        setUpComponent()
+        setupComponent()
     }
 
     override fun onCreateView(
@@ -87,7 +87,7 @@ class ExploreFragment : Fragment() {
         }
     }
 
-    private fun setUpComponent() {
+    private fun setupComponent() {
         exploreSubcomponent =
             (requireActivity().application as MainApplication)
                 .appComponent
