@@ -29,7 +29,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
 
     private fun showNotification(title: String?, message: String?) {
         val intent = Intent(this, MainActivity::class.java)
-        val channel_id = "notification_channel"
+        val channelId = "notification_channel"
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
@@ -37,7 +37,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
         )
         var builder: NotificationCompat.Builder = NotificationCompat.Builder(
             applicationContext,
-            channel_id
+            channelId
         )
             .setSmallIcon(R.drawable.ic_launcher)
             .setAutoCancel(true)
@@ -64,7 +64,7 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
         ) as NotificationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationChannel = NotificationChannel(
-                channel_id, "web_app",
+                channelId, "web_app",
                 NotificationManager.IMPORTANCE_HIGH
             )
             notificationManager.createNotificationChannel(
@@ -79,16 +79,16 @@ class FirebaseMessageReceiver : FirebaseMessagingService() {
         title: String?,
         message: String?
     ): RemoteViews {
-        val remoteViews = RemoteViews(
+        return RemoteViews(
             applicationContext.packageName,
             R.layout.notification
-        )
-        remoteViews.setTextViewText(R.id.title, title)
-        remoteViews.setTextViewText(R.id.message, message)
-        remoteViews.setImageViewResource(
-            R.id.icon,
-            R.drawable.ic_launcher
-        )
-        return remoteViews
+        ).apply {
+            setTextViewText(R.id.title, title)
+            setTextViewText(R.id.message, message)
+            setImageViewResource(
+                R.id.icon,
+                R.drawable.ic_launcher
+            )
+        }
     }
 }

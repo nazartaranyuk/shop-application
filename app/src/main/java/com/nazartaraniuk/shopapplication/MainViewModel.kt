@@ -20,4 +20,6 @@ class MainViewModel @Inject constructor(
         sharedPreferencesHelper.putInPreference(boolean)
         _isChecked.value = boolean
     }
+
+
 }

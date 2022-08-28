@@ -63,6 +63,14 @@ class AccountFragment : Fragment() {
         isChecked.observe(viewLifecycleOwner) {
             binding?.switchSendNotifications?.isChecked = it
         }
+        isOnCheckedAction.observe(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).startSendingNotifications()
+            Toast.makeText(requireContext(), TOAST_TEXT, Toast.LENGTH_LONG).show()
+            Log.d(TAG, LOG_MESSAGE)
+        }
+        isOnUncheckedAction.observe(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).stopSendingNotifications()
+        }
     }
 
     private fun setInterface() {
@@ -73,15 +81,7 @@ class AccountFragment : Fragment() {
         )
         binding?.switchSendNotifications?.setOnClickListener {
             val isChecked = (it as Switch).isChecked
-            if (isChecked) {
-                viewModel.saveSwitchState(isChecked)
-                (requireActivity() as MainActivity).startSendingNotifications()
-                Toast.makeText(requireContext(), TOAST_TEXT, Toast.LENGTH_LONG).show()
-                Log.d(TAG, LOG_MESSAGE)
-            } else {
-                viewModel.saveSwitchState(isChecked)
-                (requireActivity() as MainActivity).stopSendingNotifications()
-            }
+            viewModel.shouldShowNotification(isChecked)
         }
         binding?.tvAccountEmail?.text = user?.email
         binding?.tvAccountFirstName?.text = user?.displayName
