@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentFavoritesBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
@@ -47,11 +48,13 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         subscribeToLiveData()
         viewModel.getItemsFromDatabase()
+        val isTablet = this.resources.getBoolean(R.bool.isTablet)
+        val spanCount = if (isTablet) SPAN_COUNT_TABLET else SPAN_COUNT_MOBILE
         binding?.rvFavouritesList?.let { recyclerView ->
             setAdapter(
                 recyclerView,
                 adapter,
-                GridLayoutManager(requireActivity(), 2)
+                GridLayoutManager(requireActivity(), spanCount)
             )
         }
     }
@@ -85,4 +88,8 @@ class FavoritesFragment : Fragment() {
         }
     }
 
+    companion object {
+        const val SPAN_COUNT_TABLET = 4
+        const val SPAN_COUNT_MOBILE = 2
+    }
 }

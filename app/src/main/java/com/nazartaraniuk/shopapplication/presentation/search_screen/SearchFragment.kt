@@ -61,32 +61,21 @@ class SearchFragment : Fragment(), MainContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val isTablet = this.resources.getBoolean(R.bool.isTablet)
-        if (isTablet) {
-            binding?.rvSearchList?.let { recyclerView ->
-                setAdapter(
-                    recyclerView,
-                    searchAdapter,
-                    GridLayoutManager(requireActivity(), 4)
-                )
-            }
-        } else {
-            binding?.rvSearchList?.let { recyclerView ->
-                setAdapter(
-                    recyclerView,
-                    searchAdapter,
-                    GridLayoutManager(requireActivity(), 2)
-                )
-            }
+        val spanCount = if (isTablet) SPAN_COUNT_TABLET else SPAN_COUNT_MOBILE
+        binding?.rvSearchList?.let { recyclerView ->
+            setAdapter(
+                recyclerView,
+                searchAdapter,
+                GridLayoutManager(requireActivity(), spanCount)
+            )
         }
-
-
     }
 
     override fun displayData(list: List<ProductItemModel>) {
         binding?.etSearchField?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) = Unit
 
             override fun afterTextChanged(editText: Editable?) {
                 searchAdapter.setItems(presenter.filterList(list, editText.toString()))
@@ -105,7 +94,11 @@ class SearchFragment : Fragment(), MainContract.View {
     }
 
     override fun displayError(message: String) {
-        DialogError(message)
+        DialogError(message) // TODO replace it later
     }
 
+    companion object {
+        const val SPAN_COUNT_MOBILE = 2
+        const val SPAN_COUNT_TABLET = 4
+    }
 }

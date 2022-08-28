@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.nazartaraniuk.shopapplication.MainActivity
 import com.nazartaraniuk.shopapplication.databinding.FragmentAccountBinding
 import com.nazartaraniuk.shopapplication.presentation.SignInActivity
+import com.nazartaraniuk.shopapplication.presentation.common.NotificationHelper
 import com.nazartaraniuk.shopapplication.presentation.common.SharedPreferencesHelper
 import com.nazartaraniuk.shopapplication.presentation.common.loadImage
 import com.nazartaraniuk.shopapplication.presentation.di.AccountSubcomponent
@@ -25,9 +26,9 @@ class AccountFragment : Fragment() {
     private var binding: FragmentAccountBinding? = null
 
     @Inject
-    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
-    @Inject
     lateinit var viewModel: AccountFragmentViewModel
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
     private lateinit var accountSubcomponent: AccountSubcomponent
 
     override fun onCreateView(
@@ -64,12 +65,8 @@ class AccountFragment : Fragment() {
             binding?.switchSendNotifications?.isChecked = it
         }
         isOnCheckedAction.observe(viewLifecycleOwner) {
-            (requireActivity() as MainActivity).startSendingNotifications()
             Toast.makeText(requireContext(), TOAST_TEXT, Toast.LENGTH_LONG).show()
             Log.d(TAG, LOG_MESSAGE)
-        }
-        isOnUncheckedAction.observe(viewLifecycleOwner) {
-            (requireActivity() as MainActivity).stopSendingNotifications()
         }
     }
 

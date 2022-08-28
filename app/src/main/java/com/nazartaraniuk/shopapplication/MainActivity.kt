@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     lateinit var auth: FirebaseAuth
     private var binding: ActivityMainBinding? = null
-    @Inject
-    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
     @Inject
     lateinit var viewModel: MainViewModel
 
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         this.application.getComponent().inject(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         auth = Firebase.auth
-        startShowingNotifications()
+        viewModel.startShowingNotifications()
         val isTablet = this.resources.getBoolean(R.bool.isTablet)
         if (isTablet) {
             subscribeToLiveData()
@@ -56,13 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-
-    private fun startShowingNotifications() {
-        if (sharedPreferencesHelper.getFromPreference()) {
-            startSendingNotifications()
-        }
     }
 
     private fun setupBottomNavigation() {
@@ -98,7 +90,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
             finish()
         }
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.item_detail_nav_container) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.item_detail_nav_container) as NavHostFragment
         binding?.tvGoToExplore?.setOnClickListener {
             navHostFragment.findNavController().navigate(R.id.action_global_exploreFragment)
         }
@@ -110,15 +103,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding?.switchSendNotifications?.setOnClickListener {
             val isChecked = (it as Switch).isChecked
-            if (isChecked) {
-                viewModel.saveSwitchState(isChecked)
-                startSendingNotifications()
-                Toast.makeText(this, AccountFragment.TOAST_TEXT, Toast.LENGTH_LONG).show()
-                Log.d(AccountFragment.TAG, AccountFragment.LOG_MESSAGE)
-            } else {
-                viewModel.saveSwitchState(isChecked)
-                stopSendingNotifications()
-            }
+            viewModel.shouldShowNotification(isChecked)
         }
     }
 
@@ -126,28 +111,11 @@ class MainActivity : AppCompatActivity() {
         isChecked.observe(this@MainActivity) {
             binding?.switchSendNotifications?.isChecked = it
         }
-    }
-
-    fun stopSendingNotifications() {
-        WorkManager.getInstance(this).cancelUniqueWork(UNIQUE_WORK_NAME)
-    }
-
-    fun startSendingNotifications() {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
-            .build()
-        val workRequest = PeriodicWorkRequest.Builder(
-            NotificationWorker::class.java,
-            15, // TODO move this to companion object
-            TimeUnit.MINUTES
-        ).setConstraints(constraints)
-            .addTag(UNIQUE_WORK_NAME)
-            .build()
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            UNIQUE_WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
-            workRequest
-        )
+        isOnCheckedAction.observe(this@MainActivity) {
+            Toast.makeText(this@MainActivity, AccountFragment.TOAST_TEXT, Toast.LENGTH_LONG)
+                .show()
+            Log.d(AccountFragment.TAG, AccountFragment.LOG_MESSAGE)
+        }
     }
 
     companion object {
