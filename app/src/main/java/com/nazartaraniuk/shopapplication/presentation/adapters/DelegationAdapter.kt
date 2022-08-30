@@ -15,7 +15,15 @@ class DelegationAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        return delegatesManager.onBindViewHolder(items, position, holder)
+        delegatesManager.onBindViewHolder(holder, items[position], listOf())
+    }
+
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        delegatesManager.onBindViewHolder(holder, items[position], payloads)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -51,6 +59,10 @@ class DelegationAdapter(
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return newList[newItemPosition] == oldList[oldItemPosition]
+        }
+
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+            return oldList[oldItemPosition].payload(newList[newItemPosition])
         }
 
     }

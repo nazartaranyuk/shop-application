@@ -8,7 +8,7 @@ import com.nazartaraniuk.shopapplication.databinding.TrendingListItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
 
 class TrendingListAdapterDelegate:
-    AdapterDelegate<DisplayableItem> {
+    AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return TrendingViewHolder(
@@ -22,10 +22,10 @@ class TrendingListAdapterDelegate:
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
-        (holder as TrendingViewHolder).bind(items[position] as ProductListModel)
+        (holder as TrendingViewHolder).bind(model as ProductListModel)
     }
 
 

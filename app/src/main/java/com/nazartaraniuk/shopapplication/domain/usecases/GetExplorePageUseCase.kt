@@ -1,9 +1,9 @@
 package com.nazartaraniuk.shopapplication.domain.usecases
 
 import com.nazartaraniuk.shopapplication.domain.repository.ProductsRepository
-import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
-import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,9 +13,8 @@ import javax.inject.Inject
 class GetExplorePageUseCase @Inject constructor(
     private val repository: ProductsRepository,
     private val mapper: ToUiModelMapper,
-    private val composer: ExploreFragmentUIComposer
 ) {
-    suspend operator fun invoke() : Flow<Result<List<DisplayableItem>>> =
+    suspend operator fun invoke(): Flow<Result<Pair<List<CategoryItemModel>, List<ProductItemModel>>>> =
         withContext(Dispatchers.IO) {
             flow {
                 val categories = repository.fetchCategories()
@@ -30,9 +29,9 @@ class GetExplorePageUseCase @Inject constructor(
 
                     emit(
                         Result.success(
-                            composer.composeInterface(
-                                firstList = listOfCategories.map(mapper::toCategoryItemModel),
-                                secondList = listOfProducts.map(mapper::toProductItemModel)
+                            Pair(
+                                listOfCategories.map(mapper::toCategoryItemModel),
+                                listOfProducts.map(mapper::toProductItemModel)
                             )
                         )
                     )

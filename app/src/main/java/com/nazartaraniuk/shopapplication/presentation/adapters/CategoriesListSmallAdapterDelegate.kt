@@ -1,22 +1,16 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
-import android.app.Application
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.forEach
-import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
-import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.databinding.CategorySmallItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
 
-class CategoriesListSmallAdapterDelegate :
-    AdapterDelegate<DisplayableItem> {
+class CategoriesListSmallAdapterDelegate(
+    private val clickListener: (String) -> Unit,
+) : AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -32,19 +26,67 @@ class CategoriesListSmallAdapterDelegate :
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
-        (holder as CategoryViewHolder).bind(items[position] as CategoriesSmallListModel)
+        if (payloads.isEmpty()) {
+            (holder as CategoryViewHolder).bind(model as CategoriesSmallListModel)
+        } else {
+            (holder as CategoryViewHolder).particularBind(model as CategoriesSmallListModel)
+        }
     }
 
     inner class CategoryViewHolder(private val binding: CategoriesListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private val categoryItemBinding = CategorySmallItemBinding.inflate(LayoutInflater.from(binding.root.context))
-
         fun bind(model: CategoriesSmallListModel) {
-            binding.root.addView(categoryItemBinding.root)
+            binding.linearLayout.removeAllViews()
+            model.categories.forEach { category ->
+                val viewBinding =
+                    CategorySmallItemBinding.inflate(
+                        LayoutInflater.from(binding.root.context),
+                        binding.root,
+                        false
+                    )
+                        .apply {
+                            tvCategorySmallDescription.text = category.category
+                        }
+                if (category.isSelected) {
+                    viewBinding.root.setBackgroundResource(
+                        R.drawable.small_category_frame_selected
+                    )
+                }
+                viewBinding.root.setOnClickListener {
+                    clickListener(category.category)
+                }
+                binding.linearLayout.addView(viewBinding.root)
+            }
+        }
+
+        fun particularBind(model: CategoriesSmallListModel) {
+            model.categories.forEach { category ->
+
+                // Unselecting button
+                binding.root.setBackgroundResource(R.drawable.small_category_frame)
+
+                val viewBinding =
+                    CategorySmallItemBinding.inflate(
+                        LayoutInflater.from(binding.root.context),
+                        binding.root,
+                        false
+                    )
+                        .apply {
+                            tvCategorySmallDescription.text = category.category
+                        }
+                if (category.isSelected) {
+                    viewBinding.root.setBackgroundResource(
+                        R.drawable.small_category_frame_selected
+                    )
+                }
+                viewBinding.root.setOnClickListener {
+                    clickListener(category.category)
+                }
+            }
         }
     }
 }

@@ -10,8 +10,7 @@ import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
 
-class CategoryListAdapterDelegate :
-    AdapterDelegate<DisplayableItem> {
+class CategoryListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -25,10 +24,10 @@ class CategoryListAdapterDelegate :
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
-        (holder as CategoryViewHolder).bind(items[position] as CategoryListModel)
+        (holder as CategoryViewHolder).bind(model as CategoryListModel)
     }
 
 
@@ -36,15 +35,15 @@ class CategoryListAdapterDelegate :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(model: CategoryListModel) {
-            binding.root.removeAllViews()
-
-            val categoryBinding = CategoryItemBinding.inflate(
-                LayoutInflater.from(
-                    binding.root.context
-                )
-            )
+            binding.linearLayout.removeAllViews()
 
             model.categories.forEach {
+
+                val categoryBinding = CategoryItemBinding.inflate(
+                    LayoutInflater.from(binding.root.context),
+                    binding.root,
+                    false
+                )
 
                 categoryBinding.tvCategoryDescription.text = it.category
                 when (it.category) {
@@ -56,8 +55,8 @@ class CategoryListAdapterDelegate :
                         R.drawable.ic_women_clothing
                     )
                 }
+                binding.linearLayout.addView(categoryBinding.root)
             }
-            binding.linearLayout.addView(categoryBinding.root)
 
         }
 

@@ -16,7 +16,7 @@ import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFrag
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
+class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return ProductViewHolder(
@@ -30,10 +30,10 @@ class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
-        (holder as ProductViewHolder).bind(items[position] as ProductItemModel)
+        (holder as ProductViewHolder).bind(model as ProductItemModel)
     }
 
     inner class ProductViewHolder(private val binding: TrendingProductItemBinding) : RecyclerView.ViewHolder(binding.root) {

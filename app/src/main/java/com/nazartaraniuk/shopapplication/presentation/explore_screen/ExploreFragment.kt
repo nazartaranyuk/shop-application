@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nazartaraniuk.shopapplication.databinding.FragmentExploreBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
@@ -14,20 +15,32 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
+import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: ExploreFragmentViewModel
+
     private lateinit var exploreSubcomponent: ExploreSubcomponent
+
     private var binding: FragmentExploreBinding? = null
+
+    private val clickListener: (String) -> Unit = { category ->
+        viewModel.onCategoryClicked(category)
+    }
+
     private val adapterManager = AdapterDelegatesManager(
-        CategoriesListSmallAdapterDelegate(),
-        TrendingItemAdapterDelegate(),
-        ProductsListGridAdapterDelegate()
+        CategoriesListSmallAdapterDelegate(clickListener),
     )
-    private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
+
+    private val manager = AdapterDelegatesManager(
+        ProductItemAdapterDelegate()
+    )
+
+    private val categoriesAdapter by lazy { DelegationAdapter(adapterManager) }
+    private val gridAdapter by lazy { DelegationAdapter(manager) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,10 +66,21 @@ class ExploreFragment : Fragment() {
         binding?.rvRootList?.let { recyclerView ->
             setAdapter(
                 recyclerView,
-                rootAdapter,
+                categoriesAdapter,
                 linearLayoutManager
             )
         }
+        binding?.recyclerView?.let { recyclerView ->
+            setAdapter(
+                recyclerView,
+                gridAdapter,
+                GridLayoutManager(
+                    requireActivity(),
+                    2
+                )
+            )
+        }
+
         subscribeToLiveData()
     }
 
@@ -69,7 +93,7 @@ class ExploreFragment : Fragment() {
         errorAction.observe(viewLifecycleOwner) {
             when (it) {
                 is Events.Error -> {
-                    rootAdapter.setItems(emptyList())
+                    categoriesAdapter.setItems(emptyList())
                     createErrorSnackBar(
                         requireView(),
                         layoutInflater,
@@ -82,7 +106,8 @@ class ExploreFragment : Fragment() {
         }
 
         loadingState.observe(viewLifecycleOwner) {
-            rootAdapter.setItems(it.items)
+            categoriesAdapter.setItems(it.categories)
+            gridAdapter.setItems(it.products)
             binding?.pbLoading?.visibility = it.visibility
         }
     }

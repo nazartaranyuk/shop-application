@@ -6,11 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.databinding.ImageItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.ImageItemModel
 
-class ImageItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
-
-    override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
-        return items[position] is ImageItemModel
-    }
+class ImageItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return ItemImageViewHolder(
@@ -18,10 +14,14 @@ class ImageItemAdapterDelegate : AdapterDelegate<DisplayableItem> {
         )
     }
 
+    override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
+        return items[position] is ImageItemModel
+    }
+
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
         (holder as ItemImageViewHolder).binding.ivMainImage
     }

@@ -8,7 +8,7 @@ import com.nazartaraniuk.shopapplication.presentation.models.TitleItemModel
 
 class TitleItemAdapterDelegate(
     private val navigateToPage: (Int) -> Unit
-) : AdapterDelegate<DisplayableItem> {
+) : AdapterDelegate<DisplayableItem>() {
 
     override fun isForViewType(items: List<DisplayableItem>, position: Int): Boolean {
         return items[position] is TitleItemModel
@@ -22,10 +22,10 @@ class TitleItemAdapterDelegate(
 
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
-        items: List<DisplayableItem>,
-        position: Int
+        model: DisplayableItem,
+        payloads: List<Any>
     ) {
-        (holder as TitleItemViewHolder).bind(items[position] as TitleItemModel)
+        (holder as TitleItemViewHolder).bind(model as TitleItemModel)
     }
 
     inner class TitleItemViewHolder(private val binding: TitleItemBinding) :
