@@ -8,4 +8,8 @@ data class CategoryItemModel(
 ) : DisplayableItem {
 
     override fun id(): String = category
+
+    override fun payload(other: Any): DisplayableItem.Payloadable {
+        return DisplayableItem.Payloadable.None
+    }
 }

@@ -2,6 +2,7 @@ package com.nazartaraniuk.shopapplication.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
@@ -27,7 +28,7 @@ class CategoriesListSmallAdapterDelegate(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         model: DisplayableItem,
-        payloads: List<Any>
+        payloads: List<DisplayableItem.Payloadable>
     ) {
         if (payloads.isEmpty()) {
             (holder as CategoryViewHolder).bind(model as CategoriesSmallListModel)
@@ -66,25 +67,14 @@ class CategoriesListSmallAdapterDelegate(
         fun particularBind(model: CategoriesSmallListModel) {
             model.categories.forEach { category ->
 
-                // Unselecting button
-                binding.root.setBackgroundResource(R.drawable.small_category_frame)
-
-                val viewBinding =
-                    CategorySmallItemBinding.inflate(
-                        LayoutInflater.from(binding.root.context),
-                        binding.root,
-                        false
-                    )
-                        .apply {
-                            tvCategorySmallDescription.text = category.category
-                        }
-                if (category.isSelected) {
-                    viewBinding.root.setBackgroundResource(
-                        R.drawable.small_category_frame_selected
-                    )
-                }
-                viewBinding.root.setOnClickListener {
-                    clickListener(category.category)
+                binding.linearLayout.children.forEach { childView ->
+                    // Unselecting button
+                    childView.setBackgroundResource(R.drawable.small_category_frame)
+                    if (category.isSelected) {
+                        childView.setBackgroundResource(
+                            R.drawable.small_category_frame_selected
+                        )
+                    }
                 }
             }
         }

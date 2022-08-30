@@ -24,7 +24,7 @@ class ProductsListGridAdapterDelegate : AdapterDelegate<DisplayableItem>() {
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         model: DisplayableItem,
-        payloads: List<Any>
+        payloads: List<DisplayableItem.Payloadable>
     ) {
         (holder as ProductsViewHolder).bind(model as ProductListModel)
     }

@@ -23,7 +23,7 @@ class DelegationAdapter(
         position: Int,
         payloads: MutableList<Any>
     ) {
-        delegatesManager.onBindViewHolder(holder, items[position], payloads)
+        delegatesManager.onBindViewHolder(holder, items[position], payloads as List<DisplayableItem.Payloadable>)
     }
 
     override fun getItemViewType(position: Int): Int {

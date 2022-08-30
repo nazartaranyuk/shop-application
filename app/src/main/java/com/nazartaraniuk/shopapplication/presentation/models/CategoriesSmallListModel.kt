@@ -7,4 +7,8 @@ data class CategoriesSmallListModel(
 ) : DisplayableItem {
 
     override fun id(): String = categories.toString()
+
+    override fun payload(other: Any): DisplayableItem.Payloadable {
+        return DisplayableItem.Payloadable.None
+    }
 }

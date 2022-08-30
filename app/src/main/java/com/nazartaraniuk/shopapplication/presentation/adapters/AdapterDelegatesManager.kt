@@ -23,7 +23,7 @@ class AdapterDelegatesManager<T> (
         return delegate.onCreateViewHolder(parent)
     }
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, model: T, payloads: List<Any>) {
+    fun onBindViewHolder(holder: RecyclerView.ViewHolder, model: T, payloads: List<DisplayableItem.Payloadable>) {
         val delegate: AdapterDelegate<T> = delegates[holder.itemViewType] ?: error(
             "This delegate is null ${holder.itemViewType}"
         )

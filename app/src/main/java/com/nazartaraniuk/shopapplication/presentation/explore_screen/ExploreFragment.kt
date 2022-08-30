@@ -16,6 +16,7 @@ import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
@@ -106,7 +107,9 @@ class ExploreFragment : Fragment() {
         }
 
         loadingState.observe(viewLifecycleOwner) {
-            categoriesAdapter.setItems(it.categories)
+            categoriesAdapter.setItems(
+                listOf(CategoriesSmallListModel(it.categories as List<CategoryItemModel>))
+            )
             gridAdapter.setItems(it.products)
             binding?.pbLoading?.visibility = it.visibility
         }

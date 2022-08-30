@@ -25,7 +25,7 @@ class CategoryListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         model: DisplayableItem,
-        payloads: List<Any>
+        payloads: List<DisplayableItem.Payloadable>
     ) {
         (holder as CategoryViewHolder).bind(model as CategoryListModel)
     }

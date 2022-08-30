@@ -40,13 +40,13 @@ class ExploreFragmentViewModel @Inject constructor(
                 result
                     .onSuccess { pair ->
                         categoryProductPair = pair
-                        val list = composer.composeInterface(
-                            firstList = pair.first,
-                            secondList = pair.second,
-                            currentSelectedCategory = currentCategory,
-                        )
+                        val categories = composer.composeCategoriesList(pair.first, currentCategory)
+                        val products = composer.composeProductList(pair.second, currentCategory)
 
-                        _loadingState.value = ExploreViewModelState(pair.first, pair.second, View.GONE)
+                        _loadingState.value = ExploreViewModelState(
+                            categories.categories,
+                            products.productItems,
+                            View.GONE)
                     }
                     .onFailure { exception ->
                         _errorAction.value =

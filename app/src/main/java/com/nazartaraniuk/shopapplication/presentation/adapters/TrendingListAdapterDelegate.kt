@@ -23,7 +23,7 @@ class TrendingListAdapterDelegate:
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         model: DisplayableItem,
-        payloads: List<Any>
+        payloads: List<DisplayableItem.Payloadable>
     ) {
         (holder as TrendingViewHolder).bind(model as ProductListModel)
     }

@@ -12,7 +12,7 @@ abstract class AdapterDelegate<T> {
     abstract fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         model: T,
-        payloads: List<Any>
+        payloads: List<DisplayableItem.Payloadable>
     )
 
 }

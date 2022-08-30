@@ -44,8 +44,7 @@ object ExploreFragmentUIComposer {
     ): CategoriesSmallListModel {
         val selectedCategory = currentSelectedCategory.ifEmpty { "All" }
 
-        val list =
-            (mutableListOf(CategoryItemModel(category = "All")) + firstLetterToUpperCase(categoriesList)).map { category ->
+        val list = (mutableListOf(CategoryItemModel(category = "All")) + firstLetterToUpperCase(categoriesList)).map { category ->
                 if (category.category == selectedCategory) {
                     category.copy(isSelected = true)
                 } else {
