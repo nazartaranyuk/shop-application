@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
@@ -19,6 +21,7 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.HomeSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
+import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragmentArgs
 import javax.inject.Inject
 
 
@@ -32,15 +35,21 @@ class HomeFragment : Fragment() {
         AdapterDelegatesManager(
             ImageItemAdapterDelegate(),
             TitleItemAdapterDelegate(navigateToPage),
-            CategoryListAdapterDelegate(),
+            CategoryListAdapterDelegate(openPage),
             TrendingListAdapterDelegate(),
             TrendingItemAdapterDelegate()
         )
     }
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
+
     private val navigateToPage: (Int) -> Unit = { link ->
         findNavController().navigate(link)
+    }
+
+    private val openPage: (String) -> Unit = { string ->
+        val bundle = bundleOf("category" to string)
+        findNavController().navigate(R.id.action_homeFragment_to_exploreFragment, bundle)
     }
 
     override fun onCreateView(

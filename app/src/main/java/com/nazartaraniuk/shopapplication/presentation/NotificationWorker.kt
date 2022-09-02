@@ -14,7 +14,7 @@ import androidx.work.WorkerParameters
 import com.nazartaraniuk.shopapplication.MainActivity
 import com.nazartaraniuk.shopapplication.R
 
-class NotificationWorker(context: Context, workerParameters: WorkerParameters) :
+class NotificationWorker(private val context: Context, workerParameters: WorkerParameters) :
     Worker(context, workerParameters) {
 
     override fun doWork(): Result {
@@ -31,10 +31,10 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters) :
         val notification = Notification.Builder(
             applicationContext,
             CHANNEL_ID
-        ).setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("We have a sales!!! 50%!! Black Friday!!")
-            .setContentText("Buy some products in our super shop!")
-            .setPriority(Notification.PRIORITY_MAX) // TODO replace this deprecated
+        )
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(context.getString(R.string.notification_title))
+            .setContentText(context.getString(R.string.notification_text))
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
@@ -47,7 +47,7 @@ class NotificationWorker(context: Context, workerParameters: WorkerParameters) :
             }
 
             val notificationManager = applicationContext
-                    .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
         with(NotificationManagerCompat.from(applicationContext)) {

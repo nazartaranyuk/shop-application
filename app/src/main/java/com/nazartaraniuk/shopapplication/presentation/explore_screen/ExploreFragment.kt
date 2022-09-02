@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.nazartaraniuk.shopapplication.R
+import com.nazartaraniuk.shopapplication.databinding.CategorySmallItemBinding
 import com.nazartaraniuk.shopapplication.databinding.FragmentExploreBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
@@ -15,8 +18,8 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.ExploreSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
-import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
+import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragmentArgs
 import javax.inject.Inject
 
 class ExploreFragment : Fragment() {
@@ -58,19 +61,9 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val clickedCategory = arguments?.getString("category")
+        viewModel.onCategoryClicked(clickedCategory ?: "All")
 
-        val linearLayoutManager = object : LinearLayoutManager(requireActivity()) {
-            override fun canScrollVertically(): Boolean {
-                return false
-            }
-        }
-        binding?.rvRootList?.let { recyclerView ->
-            setAdapter(
-                recyclerView,
-                categoriesAdapter,
-                linearLayoutManager
-            )
-        }
         binding?.recyclerView?.let { recyclerView ->
             setAdapter(
                 recyclerView,
@@ -100,18 +93,38 @@ class ExploreFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
-//                    binding.pbLoading.visibility = it.visibility
+                    binding?.pbLoading?.visibility = it.visibility
                 }
                 else -> {}
             }
         }
 
-        loadingState.observe(viewLifecycleOwner) {
-            categoriesAdapter.setItems(
-                listOf(CategoriesSmallListModel(it.categories as List<CategoryItemModel>))
-            )
-            gridAdapter.setItems(it.products)
-            binding?.pbLoading?.visibility = it.visibility
+        loadingState.observe(viewLifecycleOwner) { state ->
+
+            binding?.linearLayout?.removeAllViews()
+            state.categories.filterIsInstance<CategoryItemModel>().forEach { category ->
+                val viewBinding = CategorySmallItemBinding.inflate(
+                    LayoutInflater.from(binding?.root?.context),
+                    binding?.root,
+                    false
+                ).apply {
+                    tvCategorySmallDescription.text = category.category
+                }
+                if (category.isSelected) {
+                    viewBinding.root.setBackgroundResource(
+                        R.drawable.small_category_frame_selected
+                    )
+                }
+                viewBinding.root.setOnClickListener {
+                    clickListener(category.category)
+                }
+                binding?.linearLayout?.addView(viewBinding.root)
+            }
+
+
+            gridAdapter.setItems(state.products)
+            binding?.recyclerView?.scrollToPosition(0)
+            binding?.pbLoading?.isVisible = state.isProgressBarVisible
         }
     }
 

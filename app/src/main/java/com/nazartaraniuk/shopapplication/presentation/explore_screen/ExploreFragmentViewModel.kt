@@ -1,6 +1,5 @@
 package com.nazartaraniuk.shopapplication.presentation.explore_screen
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +9,8 @@ import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.common.SingleLiveEvent
-import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
-import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,7 +32,7 @@ class ExploreFragmentViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _loadingState.value = ExploreViewModelState(listOf(), listOf(), View.VISIBLE)
+            _loadingState.value = ExploreViewModelState(listOf(), listOf(), isProgressBarVisible = true)
             getExplorePageUseCase().collect { result ->
                 result
                     .onSuccess { pair ->
@@ -44,13 +41,14 @@ class ExploreFragmentViewModel @Inject constructor(
                         val products = composer.composeProductList(pair.second, currentCategory)
 
                         _loadingState.value = ExploreViewModelState(
-                            categories.categories,
-                            products.productItems,
-                            View.GONE)
+                            categories = categories.categories,
+                            products = products.productItems,
+                            isProgressBarVisible = false,
+                        )
                     }
                     .onFailure { exception ->
                         _errorAction.value =
-                            Events.Error(exception.message ?: "Unknown error", View.GONE)
+                            Events.Error(exception.message ?: "Unknown error")
                     }
             }
         }
@@ -58,6 +56,11 @@ class ExploreFragmentViewModel @Inject constructor(
 
     fun onCategoryClicked(category: String) {
         currentCategory = category
+        _loadingState.value = _loadingState.value?.copy(
+            products = listOf(),
+            isProgressBarVisible = true,
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
             _loadingState.value?.let {
                 val categoryItems = categoryProductPair?.first.orEmpty()
@@ -69,7 +72,8 @@ class ExploreFragmentViewModel @Inject constructor(
                 _loadingState.postValue(
                     _loadingState.value?.copy(
                         categories = categories.categories,
-                        products = products.productItems
+                        products = products.productItems,
+                        isProgressBarVisible = false,
                     )
                 )
             }
@@ -79,6 +83,6 @@ class ExploreFragmentViewModel @Inject constructor(
     data class ExploreViewModelState<T>(
         val categories: List<T>,
         val products: List<T>,
-        val visibility: Int
+        val isProgressBarVisible: Boolean = false,
     )
 }

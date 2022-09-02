@@ -37,7 +37,7 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
     }
 
     inner class ProductViewHolder(private val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
+        // TODO move this words to string resources
         fun bind(model: ProductItemModel) {
             loadImage(binding.ivProductImage, model.image)
             binding.tvProductItemName.text = model.title
@@ -46,7 +46,7 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
 
             binding.root.setOnClickListener {
                 val navController = Navigation.findNavController(it)
-                val bundle = bundleOf("id" to model.id)
+                val bundle = bundleOf(ID to model.id)
                 buttonAnimation(it, binding.root.context)
                 navController.navigate(R.id.action_global_productPageFragment, bundle)
             }
@@ -59,5 +59,8 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
                 .error(R.drawable.ic_launcher_foreground)
                 .into(imageView)
         }
+    }
+    companion object {
+        const val ID = "id"
     }
 }

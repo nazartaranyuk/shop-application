@@ -27,4 +27,6 @@
     <string name="order">order</string>
     <string name="sign_in">Sign up with google account</string>
     <string name="home">Home</string>
+    <string name="notification_title">We have a sales!!! 50%!! Black Friday!!</string>
+    <string name="notification_text">Buy some products in our super shop!</string>
 </resources>

@@ -10,7 +10,9 @@ import com.nazartaraniuk.shopapplication.databinding.CategoriesListItemBinding
 import com.nazartaraniuk.shopapplication.databinding.CategoryItemBinding
 import com.nazartaraniuk.shopapplication.presentation.models.CategoryListModel
 
-class CategoryListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
+class CategoryListAdapterDelegate(
+    private val openPage: (String) -> Unit
+) : AdapterDelegate<DisplayableItem>(){
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return CategoryViewHolder(
@@ -37,7 +39,7 @@ class CategoryListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
         fun bind(model: CategoryListModel) {
             binding.linearLayout.removeAllViews()
 
-            model.categories.forEach {
+            model.categories.forEach { categoryModel ->
 
                 val categoryBinding = CategoryItemBinding.inflate(
                     LayoutInflater.from(binding.root.context),
@@ -45,8 +47,12 @@ class CategoryListAdapterDelegate : AdapterDelegate<DisplayableItem>() {
                     false
                 )
 
-                categoryBinding.tvCategoryDescription.text = it.category
-                when (it.category) {
+                categoryBinding.root.setOnClickListener {
+                    openPage(categoryModel.category)
+                }
+
+                categoryBinding.tvCategoryDescription.text = categoryModel.category
+                when (categoryModel.category) {
                     ELECTRONICS -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_electronics)
                     JEWELERY -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_jewerly)
                     MENS_CLOTHING -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_men_clothing)

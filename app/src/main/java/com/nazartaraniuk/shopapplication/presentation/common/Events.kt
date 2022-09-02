@@ -13,7 +13,7 @@ sealed class Events(
 
     class Error(
         message: String,
-        visibility: Int,
+        visibility: Int = View.VISIBLE,
     ) : Events(message, visibility)
 
     class Saved(
