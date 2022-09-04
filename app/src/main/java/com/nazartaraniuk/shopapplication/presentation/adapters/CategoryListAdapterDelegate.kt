@@ -53,12 +53,12 @@ class CategoryListAdapterDelegate(
 
                 categoryBinding.tvCategoryDescription.text = categoryModel.category
                 when (categoryModel.category) {
-                    ELECTRONICS -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_electronics)
-                    JEWELERY -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_jewerly)
-                    MENS_CLOTHING -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.ic_men_clothing)
+                    ELECTRONICS -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.electronics)
+                    JEWELERY -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.jewelry)
+                    MENS_CLOTHING -> loadImage(categoryBinding.ivCategoryIcon, R.drawable.mens_clothing)
                     WOMENS_CLOTHING -> loadImage(
                         categoryBinding.ivCategoryIcon,
-                        R.drawable.ic_women_clothing
+                        R.drawable.womens_clothing
                     )
                 }
                 binding.linearLayout.addView(categoryBinding.root)

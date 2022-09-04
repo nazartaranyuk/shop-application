@@ -1,6 +1,5 @@
 package com.nazartaraniuk.shopapplication.presentation
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,12 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.nazartaraniuk.shopapplication.MainActivity
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ActivitySigninBinding
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
 
-@SuppressLint("CustomSplashScreen")
 class SignInActivity : AppCompatActivity() {
 
     private var binding: ActivitySigninBinding? = null
@@ -52,7 +46,7 @@ class SignInActivity : AppCompatActivity() {
                 if (account != null) {
                     firebaseAuthWithGoogle(account.idToken!!)
                 } else {
-                    Toast.makeText(this, account.toString(), Toast.LENGTH_LONG)
+                    Toast.makeText(this, account.toString(), Toast.LENGTH_LONG).show()
                 }
             } catch (e: ApiException) {
                 Log.d("SignInActivity", "Something went wrong")
@@ -68,21 +62,15 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        if (Firebase.auth.currentUser != null) {
+        if (Firebase.auth.currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-//        }
+        }
     }
 
     // launch google accounts intent
     private fun signInWithGoogle() {
         signIn.launch(googleSignInClient.signInIntent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Remove video playing
-        binding?.videoView?.release()
     }
 
     private fun firebaseAuthWithGoogle(id: String) {

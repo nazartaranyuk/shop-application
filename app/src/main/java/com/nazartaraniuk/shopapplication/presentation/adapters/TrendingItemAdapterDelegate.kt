@@ -1,6 +1,7 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.os.bundleOf
@@ -16,7 +17,9 @@ import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFrag
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
+class TrendingItemAdapterDelegate(
+    private val openProductPage: (View, ProductItemModel) -> Unit
+) : AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return ProductViewHolder(
@@ -44,12 +47,8 @@ class TrendingItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
             binding.tvProductItemCategory.text = model.category
             binding.tvTrendingItemPrice.text = "${model.price} USD"
 
-            binding.root.setOnClickListener {
-                val navController = Navigation.findNavController(it)
-                val bundle = bundleOf("id" to model.id)
-                buttonAnimation(it, binding.root.context)
-                // TODO provide here lambda
-                navController.navigate(R.id.action_global_productPageFragment, bundle)
+            binding.root.setOnClickListener { view ->
+                openProductPage(view, model)
             }
         }
 

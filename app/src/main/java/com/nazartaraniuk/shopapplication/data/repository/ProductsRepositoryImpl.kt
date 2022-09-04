@@ -46,4 +46,8 @@ class ProductsRepositoryImpl @Inject constructor(
         return localDataSource.isAdded(id)
     }
 
+    override suspend fun buyProduct(body: ProductItem) {
+        remoteDataSource.buyProduct(mapper.toProductItemEntity(body))
+    }
+
 }

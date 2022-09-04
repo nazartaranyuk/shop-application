@@ -36,13 +36,14 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
         (holder as ProductViewHolder).bind(model as ProductItemModel)
     }
 
-    inner class ProductViewHolder(private val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        // TODO move this words to string resources
+    inner class ProductViewHolder(private val binding: ProductItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(model: ProductItemModel) {
             loadImage(binding.ivProductImage, model.image)
             binding.tvProductItemName.text = model.title
             binding.tvProductItemCategory.text = model.category
-            binding.tvTrendingItemPrice.text = "${model.price} USD"
+            binding.tvTrendingItemPrice.text =
+                "${binding.root.context.resources.getString(R.string.dollar)}${model.price}"
 
             binding.root.setOnClickListener {
                 val navController = Navigation.findNavController(it)
@@ -60,6 +61,7 @@ class ProductItemAdapterDelegate : AdapterDelegate<DisplayableItem>() {
                 .into(imageView)
         }
     }
+
     companion object {
         const val ID = "id"
     }

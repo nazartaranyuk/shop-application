@@ -1,6 +1,7 @@
 package com.nazartaraniuk.shopapplication.data.repository
 
 import com.nazartaraniuk.shopapplication.data.api.ProductsApi
+import com.nazartaraniuk.shopapplication.data.entities.ProductItemEntity
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
 import com.nazartaraniuk.shopapplication.domain.entities.ProductItem
 import com.nazartaraniuk.shopapplication.presentation.exceptions.ApiErrorException
@@ -43,6 +44,10 @@ class ProductsRemoteDataSourceImpl @Inject constructor(
                     mapper.toProductItem(item)
                 }
             }
+    }
+
+    override suspend fun buyProduct(body: ProductItemEntity) {
+        productsApi.buyProduct(body)
     }
 
     private inline fun <R> handleCatching(block: () -> R): Result<R> {

@@ -3,5 +3,7 @@
     <solid android:color="@color/bottom_navigation" />
     <corners
         android:topLeftRadius="32dp"
-        android:topRightRadius="32dp" />
+        android:topRightRadius="32dp"
+        android:bottomLeftRadius="32dp"
+        android:bottomRightRadius="32dp"/>
 </shape>

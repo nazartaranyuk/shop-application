@@ -2,37 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
+    android:background="@color/main_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/videoView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:autoPlay="true"
-        app:layout_constraintBottom_toTopOf="@+id/login_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:videoId="QK8mJJJvaes" />
     <LinearLayout
+        android:elevation="20dp"
         android:id="@+id/login_container"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:background="@drawable/bottom_navigation"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <Button
             android:id="@+id/btn_sign_up"
-            android:text="@string/sign_in"
-            android:drawableLeft="@drawable/ic_google_logo"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:drawableLeft="@drawable/ic_google_logo"
+            android:text="@string/sign_in"
             tools:ignore="RtlHardcoded" />
 
     </LinearLayout>

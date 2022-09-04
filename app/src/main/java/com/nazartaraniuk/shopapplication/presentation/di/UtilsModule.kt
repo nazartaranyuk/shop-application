@@ -1,9 +1,11 @@
 package com.nazartaraniuk.shopapplication.presentation.di
 
+import android.content.Context
 import com.nazartaraniuk.shopapplication.data.mappers.ApiResponseMapper
 import com.nazartaraniuk.shopapplication.domain.mappers.DomainMapper
 import com.nazartaraniuk.shopapplication.presentation.common.ExploreFragmentUIComposer
 import com.nazartaraniuk.shopapplication.presentation.common.HomeFragmentUIComposer
+import com.nazartaraniuk.shopapplication.presentation.common.ResourceProvider
 import com.nazartaraniuk.shopapplication.presentation.mappers.ToUiModelMapper
 import dagger.Module
 import dagger.Provides
@@ -32,7 +34,10 @@ class UtilsModule {
     }
 
     @Provides
-    fun provideExploreComposer() : ExploreFragmentUIComposer {
-        return ExploreFragmentUIComposer
+    fun provideResourceProvider(context: Context): ResourceProvider = ResourceProvider(context)
+
+    @Provides
+    fun provideExploreComposer(resourceProvider: ResourceProvider) : ExploreFragmentUIComposer {
+        return ExploreFragmentUIComposer(resourceProvider)
     }
 }

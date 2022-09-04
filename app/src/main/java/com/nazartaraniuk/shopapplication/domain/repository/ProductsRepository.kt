@@ -17,4 +17,5 @@ interface ProductsRepository {
     suspend fun addToFavorites(item: ProductItemEntity)
     suspend fun deleteFromFavorites(item: ProductItem)
     suspend fun isAdded(id: Int): Boolean
+    suspend fun buyProduct(body: ProductItem)
 }

@@ -27,6 +27,7 @@ class AccountFragmentViewModel @Inject constructor(
         saveSwitchState(isChecked)
         if (isChecked) {
             notificationHelper.startSendingNotifications()
+            _isOnCheckedAction.call()
         } else {
             notificationHelper.stopSendingNotifications()
         }

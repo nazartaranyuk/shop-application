@@ -19,6 +19,7 @@ import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setUpInterface
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.ProductPageSubcomponent
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
 class ProductPageFragment : Fragment() {
@@ -55,7 +56,6 @@ class ProductPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getProductPageInformation(args.id)
         subscribeToLiveData()
-        setUpListener()
     }
 
     private fun setUpComponent() {
@@ -65,13 +65,6 @@ class ProductPageFragment : Fragment() {
                 .productPageSubcomponent()
                 .build()
         productPageSubcomponent.inject(this)
-    }
-
-    private fun setUpListener() = with(binding) {
-        this?.btnAddToCart?.setOnClickListener {
-            // TODO move word to string resources
-            Toast.makeText(requireContext(), "Okay! Wait for your product", Toast.LENGTH_LONG)
-        }
     }
 
     override fun onStop() {
@@ -103,6 +96,10 @@ class ProductPageFragment : Fragment() {
             binding?.let { binding -> setUpInterface(state.item, binding) }
             val heartButton = binding?.ivAddToFavorites
             createNotification()
+            binding?.btnAddToCart?.setOnClickListener {
+                viewModel.buyProduct(state.item)
+                Toast.makeText(requireActivity(), getString(R.string.toast_text), Toast.LENGTH_LONG).show()
+            }
             heartButton?.visibility = state.heartButtonVisibility
             heartButton?.setBackgroundResource(state.resourceImg.resource)
             heartButton?.setOnClickListener {

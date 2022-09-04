@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -17,10 +18,13 @@ import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentHomeBinding
 import com.nazartaraniuk.shopapplication.presentation.adapters.*
 import com.nazartaraniuk.shopapplication.presentation.common.Events
+import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.HomeSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragmentArgs
 import javax.inject.Inject
 
@@ -36,12 +40,18 @@ class HomeFragment : Fragment() {
             ImageItemAdapterDelegate(),
             TitleItemAdapterDelegate(navigateToPage),
             CategoryListAdapterDelegate(openPage),
-            TrendingListAdapterDelegate(),
-            TrendingItemAdapterDelegate()
+            TrendingListAdapterDelegate(openProductPage),
+            TrendingItemAdapterDelegate(openProductPage)
         )
     }
     private val rootAdapter by lazy { DelegationAdapter(adapterManager) }
 
+    private val openProductPage: (View, ProductItemModel) -> Unit = { view, model ->
+        val navController = Navigation.findNavController(view)
+        val bundle = bundleOf(ID to model.id)
+        buttonAnimation(view, requireActivity())
+        navController.navigate(R.id.action_global_productPageFragment, bundle)
+    }
 
     private val navigateToPage: (Int) -> Unit = { link ->
         findNavController().navigate(link)
@@ -123,5 +133,8 @@ class HomeFragment : Fragment() {
             binding?.shimmerAnimationLoading?.visibility = it.animationVisibility
             binding?.rvRootList?.visibility = it.interfaceVisibility
         }
+    }
+    companion object {
+        const val ID = "id"
     }
 }

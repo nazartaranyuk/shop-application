@@ -16,17 +16,21 @@
     <string name="ok">OK</string>
     <string name="please_connect_to_the_internet">Please, connect to the internet</string>
     <string name="explore_categories">Explore Categories</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="favorites_button">Favorites button</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="log_out">Log out</string>
     <string name="send_notifications">Send notifications</string>
     <string name="welcome_to_our_shop">Welcome to our shop!</string>
     <string name="buy">Buy</string>
+    <string name="dollar">$</string>
+    <string name="all">All</string>
     <string name="order">order</string>
     <string name="sign_in">Sign up with google account</string>
     <string name="home">Home</string>
     <string name="notification_title">We have a sales!!! 50%!! Black Friday!!</string>
     <string name="notification_text">Buy some products in our super shop!</string>
+    <string name="toast_text">Okay! Wait for your product</string>
+    <string name="image_poster">Image poster</string>
+    <string name="style">style</string>
+    <string name="image_poster_title">Everything you can imagine is real</string>
 </resources>

@@ -7,14 +7,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentSearchBinding
-import com.nazartaraniuk.shopapplication.presentation.dialogs.DialogError
 import com.nazartaraniuk.shopapplication.presentation.adapters.AdapterDelegatesManager
 import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
 import com.nazartaraniuk.shopapplication.presentation.adapters.TrendingItemAdapterDelegate
+import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
+import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setAdapter
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.SearchSubcomponent
@@ -25,12 +28,20 @@ class SearchFragment : Fragment(), MainContract.View {
 
     private val adapterManager by lazy {
         AdapterDelegatesManager(
-            TrendingItemAdapterDelegate()
+            TrendingItemAdapterDelegate(openProductPage)
         )
     }
     private val searchAdapter by lazy {
         DelegationAdapter(adapterManager)
     }
+
+    private val openProductPage: (View, ProductItemModel) -> Unit = { view, model ->
+        val navController = Navigation.findNavController(view)
+        val bundle = bundleOf(ID to model.id)
+        buttonAnimation(view, requireActivity())
+        navController.navigate(R.id.action_global_productPageFragment, bundle)
+    }
+
     private var binding: FragmentSearchBinding? = null
     override fun onStart() {
         super.onStart()
@@ -94,11 +105,16 @@ class SearchFragment : Fragment(), MainContract.View {
     }
 
     override fun displayError(message: String) {
-        DialogError(message) // TODO replace it later
+        createErrorSnackBar(
+            requireView(),
+            layoutInflater,
+            message
+        )
     }
 
     companion object {
         const val SPAN_COUNT_MOBILE = 2
         const val SPAN_COUNT_TABLET = 4
+        const val ID = "id"
     }
 }

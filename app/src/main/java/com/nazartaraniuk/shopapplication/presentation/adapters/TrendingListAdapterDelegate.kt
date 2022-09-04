@@ -1,13 +1,22 @@
 package com.nazartaraniuk.shopapplication.presentation.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.TrendingListItemBinding
+import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
+import com.nazartaraniuk.shopapplication.presentation.home_screen.HomeFragment
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
 
-class TrendingListAdapterDelegate:
+class TrendingListAdapterDelegate(
+    private val openProductPage: (View, ProductItemModel) -> Unit
+):
     AdapterDelegate<DisplayableItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
@@ -35,8 +44,9 @@ class TrendingListAdapterDelegate:
         fun bind(model: ProductListModel) {
 
             val adapterManager = AdapterDelegatesManager(
-                TrendingItemAdapterDelegate()
+                TrendingItemAdapterDelegate(openProductPage)
             )
+
 
             val adapter = DelegationAdapter(adapterManager)
             adapter.setItems(model.productItems)

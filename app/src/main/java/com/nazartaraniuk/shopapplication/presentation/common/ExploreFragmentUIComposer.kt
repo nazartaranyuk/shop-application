@@ -1,56 +1,36 @@
 package com.nazartaraniuk.shopapplication.presentation.common
 
-import com.nazartaraniuk.shopapplication.databinding.CategorySmallItemBinding
-import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
-import com.nazartaraniuk.shopapplication.presentation.models.*
+import com.nazartaraniuk.shopapplication.R
+import com.nazartaraniuk.shopapplication.presentation.models.CategoriesSmallListModel
+import com.nazartaraniuk.shopapplication.presentation.models.CategoryItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
+import com.nazartaraniuk.shopapplication.presentation.models.ProductListModel
+import javax.inject.Inject
 import javax.inject.Singleton
 
-// TODO: Provide here resource provider and retrieve "All" string from resources
 @Singleton
-object ExploreFragmentUIComposer {
-
-    fun composeInterface(
-        firstList: List<CategoryItemModel>,
-        secondList: List<ProductItemModel>,
-        currentSelectedCategory: String,
-    ): List<DisplayableItem> {
-
-        val selectedCategory = currentSelectedCategory.ifEmpty { "All" }
-
-        val list =
-            (mutableListOf(CategoryItemModel(category = "All")) + firstLetterToUpperCase(firstList)).map { category ->
-                if (category.category == selectedCategory) {
-                    category.copy(isSelected = true)
-                } else {
-                    category
-                }
-            }
-
-        return listOf(
-            CategoriesSmallListModel(
-                categories = list
-            ),
-            ProductListModel(
-                productItems = secondList.filter {
-                    selectedCategory == "All" || selectedCategory.contains(it.category, true)
-                }
-            )
-        )
+class ExploreFragmentUIComposer @Inject constructor(
+    private val resourceProvider: ResourceProvider
+) {
+    private val defaultString: String by lazy {
+        resourceProvider.getStringFromResources(R.string.all)
     }
 
     fun composeCategoriesList(
         categoriesList: List<CategoryItemModel>,
         currentSelectedCategory: String,
     ): CategoriesSmallListModel {
-        val selectedCategory = currentSelectedCategory.ifEmpty { "All" }
+        val selectedCategory = currentSelectedCategory.ifEmpty { defaultString }
 
-        val list = (mutableListOf(CategoryItemModel(category = "All")) + firstLetterToUpperCase(categoriesList)).map { category ->
-                if (category.category == selectedCategory) {
-                    category.copy(isSelected = true)
-                } else {
-                    category
-                }
+        val list = (mutableListOf(CategoryItemModel(category = defaultString)) + firstLetterToUpperCase(
+            categoriesList
+        )).map { category ->
+            if (category.category == selectedCategory) {
+                category.copy(isSelected = true)
+            } else {
+                category
             }
+        }
         return CategoriesSmallListModel(list)
     }
 
@@ -58,11 +38,11 @@ object ExploreFragmentUIComposer {
         productList: List<ProductItemModel>,
         currentSelectedCategory: String,
     ): ProductListModel {
-        val selectedCategory = currentSelectedCategory.ifEmpty { "All" }
+        val selectedCategory = currentSelectedCategory.ifEmpty { defaultString }
 
         return ProductListModel(
             productItems = productList.filter {
-                selectedCategory == "All" || selectedCategory.contains(it.category, true)
+                selectedCategory == defaultString || selectedCategory.contains(it.category, true)
             }
         )
     }

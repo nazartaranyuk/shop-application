@@ -85,7 +85,7 @@ class AccountFragment : Fragment() {
         binding?.tvLogOut?.setOnClickListener {
             val activity = (requireActivity() as MainActivity)
             activity.auth.signOut()
-            startActivity(Intent(requireActivity(), SignInActivity::class.java))
+            startActivity(Intent(activity, SignInActivity::class.java))
             activity.finish()
         }
     }

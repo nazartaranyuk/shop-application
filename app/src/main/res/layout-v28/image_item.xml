@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_color"
+                android:textFontWeight="800"
                 android:textSize="25sp"
                 android:text="@string/image_poster_title"
                 android:layout_marginBottom="15dp"
@@ -44,6 +45,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
             <TextView
                 android:layout_width="wrap_content"
+                android:textFontWeight="800"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="25.5sp"

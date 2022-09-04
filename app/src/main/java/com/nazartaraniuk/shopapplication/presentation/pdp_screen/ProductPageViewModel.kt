@@ -25,7 +25,8 @@ class ProductPageViewModel @Inject constructor(
     private val checkIsAddedUseCase: CheckIsAddedUseCase,
     private val deleteProductFromDatabaseUseCase: DeleteProductFromDatabaseUseCase,
     private val mapper: ToUiModelMapper,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val buyProductUseCase: BuyProductUseCase
 ) : ViewModel() {
 
     private val _errorAction = SingleLiveEvent<Events>()
@@ -48,6 +49,12 @@ class ProductPageViewModel @Inject constructor(
     fun saveFavorite(item: ProductItemModel) {
         viewModelScope.launch(dispatcher) {
             putProductToDatabaseUseCase(mapper.toProductItem(item))
+        }
+    }
+
+    fun buyProduct(item: ProductItemModel) {
+        viewModelScope.launch {
+            buyProductUseCase(mapper.toProductItem(item))
         }
     }
 
@@ -80,9 +87,9 @@ class ProductPageViewModel @Inject constructor(
                         ))
                     }
                     .onFailure { exception ->
-                        _errorAction.value = Events.Error(
+                        _errorAction.postValue(Events.Error(
                             exception.message ?: "Error with product loading", View.GONE
-                        )
+                        ))
                     }
 
             }
