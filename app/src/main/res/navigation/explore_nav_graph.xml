@@ -9,7 +9,11 @@
         android:id="@+id/exploreFragment"
         android:name="com.nazartaraniuk.shopapplication.presentation.explore_screen.ExploreFragment"
         android:label="fragment_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_productPageFragment"
@@ -30,4 +34,8 @@
         android:name="com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragment"
         android:label="fragment_product_page"
         tools:layout="@layout/fragment_product_page" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.nazartaraniuk.shopapplication.presentation.search_screen.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

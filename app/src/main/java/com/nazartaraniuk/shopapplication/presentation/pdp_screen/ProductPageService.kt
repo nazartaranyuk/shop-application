@@ -1,4 +1,4 @@
-package com.nazartaraniuk.shopapplication.presentation
+package com.nazartaraniuk.shopapplication.presentation.pdp_screen
 
 import android.app.*
 import android.content.Context
@@ -9,7 +9,6 @@ import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.PRIORITY_HIGH
-import com.nazartaraniuk.shopapplication.MainActivity
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragment.Companion.PRODUCT_NAME_KEY
 import com.nazartaraniuk.shopapplication.presentation.pdp_screen.ProductPageFragment.Companion.PRODUCT_PRICE_KEY

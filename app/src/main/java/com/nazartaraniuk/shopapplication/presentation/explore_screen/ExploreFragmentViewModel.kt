@@ -48,7 +48,7 @@ class ExploreFragmentViewModel @Inject constructor(
                     }
                     .onFailure { exception ->
                         _errorAction.value =
-                            Events.Error(exception.message ?: "Unknown error")
+                            Events.Error(exception.message ?: UNKNOWN_ERROR)
                     }
             }
         }
@@ -85,4 +85,8 @@ class ExploreFragmentViewModel @Inject constructor(
         val products: List<T>,
         val isProgressBarVisible: Boolean = false,
     )
+
+    companion object {
+        const val UNKNOWN_ERROR = "Unknown error"
+    }
 }

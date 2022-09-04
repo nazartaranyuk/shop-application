@@ -2,7 +2,6 @@ package com.nazartaraniuk.shopapplication.presentation.account_screen
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,11 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.Toast
-import com.nazartaraniuk.shopapplication.MainActivity
+import com.nazartaraniuk.shopapplication.presentation.MainActivity
 import com.nazartaraniuk.shopapplication.databinding.FragmentAccountBinding
-import com.nazartaraniuk.shopapplication.presentation.SignInActivity
-import com.nazartaraniuk.shopapplication.presentation.common.NotificationHelper
-import com.nazartaraniuk.shopapplication.presentation.common.SharedPreferencesHelper
+import com.nazartaraniuk.shopapplication.presentation.signin_screen.SignInActivity
+import com.nazartaraniuk.shopapplication.presentation.notifications.NotificationHelper
 import com.nazartaraniuk.shopapplication.presentation.common.loadImage
 import com.nazartaraniuk.shopapplication.presentation.di.AccountSubcomponent
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication

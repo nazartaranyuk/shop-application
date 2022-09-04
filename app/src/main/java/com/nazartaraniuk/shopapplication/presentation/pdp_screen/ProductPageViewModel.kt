@@ -63,10 +63,10 @@ class ProductPageViewModel @Inject constructor(
             _loadingState.postValue(
                 ProductPageViewModelState(
                     mockItem,
-                    View.VISIBLE,
-                    View.GONE,
-                    Events.UnSaved(R.drawable.ic_favorites_unchecked),
-                    false
+                    loadingVisibility = true,
+                    heartButtonVisibility = false,
+                    resourceImg = Events.UnSaved(R.drawable.ic_favorites_unchecked),
+                    isFavorite = false
                 )
             )
             getSingleProductUseCase(id).collect { result ->
@@ -80,15 +80,15 @@ class ProductPageViewModel @Inject constructor(
                         }
                         _loadingState.postValue(ProductPageViewModelState(
                             product,
-                            loadingVisibility = View.GONE,
-                            heartButtonVisibility = View.VISIBLE,
+                            loadingVisibility = false,
+                            heartButtonVisibility = true,
                             resourceImg,
                             isAdded
                         ))
                     }
                     .onFailure { exception ->
                         _errorAction.postValue(Events.Error(
-                            exception.message ?: "Error with product loading", View.GONE
+                            exception.message ?: "Error with product loading", false
                         ))
                     }
 
@@ -104,8 +104,8 @@ class ProductPageViewModel @Inject constructor(
 
     data class ProductPageViewModelState<T>(
         val item: T,
-        val loadingVisibility: Int,
-        val heartButtonVisibility: Int,
+        val loadingVisibility: Boolean,
+        val heartButtonVisibility: Boolean,
         @DrawableRes val resourceImg: Events,
         val isFavorite: Boolean
     )

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentFavoritesBinding
@@ -73,11 +74,7 @@ class FavoritesFragment : Fragment() {
             when (it) {
                 is Events.Error -> {
                     adapter.setItems(emptyList())
-                    createErrorSnackBar(
-                        requireView(),
-                        layoutInflater,
-                        it.message
-                    )
+                    binding?.tvEmptyFavorites?.isVisible = !it.visibility
                 }
                 else -> {}
             }

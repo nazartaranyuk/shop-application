@@ -1,9 +1,8 @@
-package com.nazartaraniuk.shopapplication.presentation.common
+package com.nazartaraniuk.shopapplication.presentation.notifications
 
 import android.content.Context
 import androidx.work.*
-import com.nazartaraniuk.shopapplication.MainActivity
-import com.nazartaraniuk.shopapplication.presentation.NotificationWorker
+import com.nazartaraniuk.shopapplication.presentation.MainActivity
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

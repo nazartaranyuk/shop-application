@@ -24,15 +24,21 @@ class HomeFragmentViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _loadingState.value = HomeViewModelState(listOf(), View.VISIBLE, View.GONE)
+            _loadingState.value = HomeViewModelState(listOf(),
+                animationVisibility = true,
+                interfaceVisibility = false
+            )
             getHomePageUseCase().collect { result ->
                 result
                     .onSuccess { list ->
-                        _loadingState.value = HomeViewModelState(list, View.GONE, View.VISIBLE)
+                        _loadingState.value = HomeViewModelState(list,
+                            animationVisibility = false,
+                            interfaceVisibility = true
+                        )
                     }
                     .onFailure { exception ->
                         _errorAction.value =
-                            Events.Error(exception.message ?: "Some error", View.GONE)
+                            Events.Error(exception.message ?: ERROR_MESSAGE, false)
                     }
             }
         }
@@ -40,7 +46,10 @@ class HomeFragmentViewModel @Inject constructor(
 
     data class HomeViewModelState<T>(
         val items: List<T>,
-        val animationVisibility: Int,
-        val interfaceVisibility: Int
+        val animationVisibility: Boolean,
+        val interfaceVisibility: Boolean
     )
+    companion object {
+        const val ERROR_MESSAGE = "Some error"
+    }
 }

@@ -3,7 +3,7 @@ package com.nazartaraniuk.shopapplication.presentation.account_screen
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nazartaraniuk.shopapplication.presentation.common.NotificationHelper
+import com.nazartaraniuk.shopapplication.presentation.notifications.NotificationHelper
 import com.nazartaraniuk.shopapplication.presentation.common.SharedPreferencesHelper
 import com.nazartaraniuk.shopapplication.presentation.common.SingleLiveEvent
 import javax.inject.Inject

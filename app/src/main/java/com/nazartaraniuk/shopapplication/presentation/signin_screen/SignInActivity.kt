@@ -1,4 +1,4 @@
-package com.nazartaraniuk.shopapplication.presentation
+package com.nazartaraniuk.shopapplication.presentation.signin_screen
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.nazartaraniuk.shopapplication.MainActivity
+import com.nazartaraniuk.shopapplication.presentation.MainActivity
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ActivitySigninBinding
 

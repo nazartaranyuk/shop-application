@@ -1,4 +1,4 @@
-package com.nazartaraniuk.shopapplication.presentation
+package com.nazartaraniuk.shopapplication.presentation.notifications
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -11,7 +11,7 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.nazartaraniuk.shopapplication.MainActivity
+import com.nazartaraniuk.shopapplication.presentation.MainActivity
 import com.nazartaraniuk.shopapplication.R
 
 

@@ -9,17 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startForegroundService
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.FragmentProductPageBinding
-import com.nazartaraniuk.shopapplication.presentation.ProductPageService
 import com.nazartaraniuk.shopapplication.presentation.common.Events
 import com.nazartaraniuk.shopapplication.presentation.common.buttonAnimation
 import com.nazartaraniuk.shopapplication.presentation.common.createErrorSnackBar
 import com.nazartaraniuk.shopapplication.presentation.common.setUpInterface
 import com.nazartaraniuk.shopapplication.presentation.di.MainApplication
 import com.nazartaraniuk.shopapplication.presentation.di.ProductPageSubcomponent
-import com.nazartaraniuk.shopapplication.presentation.models.ProductItemModel
 import javax.inject.Inject
 
 class ProductPageFragment : Fragment() {
@@ -98,9 +97,10 @@ class ProductPageFragment : Fragment() {
             createNotification()
             binding?.btnAddToCart?.setOnClickListener {
                 viewModel.buyProduct(state.item)
-                Toast.makeText(requireActivity(), getString(R.string.toast_text), Toast.LENGTH_LONG).show()
+                Toast.makeText(requireActivity(), getString(R.string.toast_text), Toast.LENGTH_LONG)
+                    .show()
             }
-            heartButton?.visibility = state.heartButtonVisibility
+            heartButton?.isVisible = state.heartButtonVisibility
             heartButton?.setBackgroundResource(state.resourceImg.resource)
             heartButton?.setOnClickListener {
                 if (state.isFavorite) {
@@ -113,7 +113,7 @@ class ProductPageFragment : Fragment() {
                     viewModel.saveFavorite(state.item)
                 }
             }
-            binding?.pbLoading?.visibility = state.loadingVisibility
+            binding?.pbLoading?.isVisible = state.loadingVisibility
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -122,16 +123,16 @@ class HomeFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
-                    binding?.shimmerAnimationLoading?.visibility = it.visibility
-                    binding?.rvRootList?.visibility = it.visibility
+                    binding?.shimmerAnimationLoading?.isVisible = it.visibility
+                    binding?.rvRootList?.isVisible = it.visibility
                 }
                 else -> {}
             }
         }
         loadingState.observe(viewLifecycleOwner) {
             rootAdapter.setItems(it.items)
-            binding?.shimmerAnimationLoading?.visibility = it.animationVisibility
-            binding?.rvRootList?.visibility = it.interfaceVisibility
+            binding?.shimmerAnimationLoading?.isVisible = it.animationVisibility
+            binding?.rvRootList?.isVisible = it.interfaceVisibility
         }
     }
     companion object {

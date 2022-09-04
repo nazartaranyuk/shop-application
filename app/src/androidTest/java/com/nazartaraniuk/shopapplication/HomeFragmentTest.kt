@@ -11,9 +11,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.filters.LargeTest
-import com.nazartaraniuk.shopapplication.presentation.adapters.CategoriesListSmallAdapterDelegate
-import com.nazartaraniuk.shopapplication.presentation.adapters.DelegationAdapter
-import com.nazartaraniuk.shopapplication.presentation.adapters.DisplayableItem
+import com.nazartaraniuk.shopapplication.presentation.MainActivity
 import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test

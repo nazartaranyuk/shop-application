@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ShopApplication"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.SignInActivity"
+            android:name=".presentation.signin_screen.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,17 +28,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <service android:name=".presentation.FirebaseMessageReceiver"
+        <service android:name=".presentation.notifications.FirebaseMessageReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".presentation.ProductPageService" />
+        <service android:name=".presentation.pdp_screen.ProductPageService" />
     </application>
 
 </manifest>

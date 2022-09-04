@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nazartaraniuk.shopapplication.R
@@ -61,9 +62,13 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val clickedCategory = arguments?.getString("category")
-        viewModel.onCategoryClicked(clickedCategory ?: "All")
-
+        val clickedCategory = arguments?.getString(KEY)
+        viewModel.onCategoryClicked(
+            clickedCategory ?: requireActivity().resources.getString(R.string.all)
+        )
+        binding?.etSearchField?.setOnClickListener {
+            it.findNavController().navigate(R.id.action_exploreFragment_to_searchFragment)
+        }
         binding?.recyclerView?.let { recyclerView ->
             setAdapter(
                 recyclerView,
@@ -93,7 +98,7 @@ class ExploreFragment : Fragment() {
                         layoutInflater,
                         it.message
                     )
-                    binding?.pbLoading?.visibility = it.visibility
+                    binding?.pbLoading?.isVisible = it.visibility
                 }
                 else -> {}
             }
@@ -135,5 +140,8 @@ class ExploreFragment : Fragment() {
                 .exploreSubcomponent()
                 .build()
         exploreSubcomponent.inject(this)
+    }
+    companion object {
+        const val KEY = "category"
     }
 }

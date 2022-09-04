@@ -1,31 +1,24 @@
-package com.nazartaraniuk.shopapplication
+package com.nazartaraniuk.shopapplication.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.work.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.nazartaraniuk.shopapplication.R
 import com.nazartaraniuk.shopapplication.databinding.ActivityMainBinding
-import com.nazartaraniuk.shopapplication.presentation.NotificationWorker
-import com.nazartaraniuk.shopapplication.presentation.SignInActivity
+import com.nazartaraniuk.shopapplication.presentation.signin_screen.SignInActivity
 import com.nazartaraniuk.shopapplication.presentation.account_screen.AccountFragment
-import com.nazartaraniuk.shopapplication.presentation.common.SharedPreferencesHelper
 import com.nazartaraniuk.shopapplication.presentation.common.loadImage
 import com.nazartaraniuk.shopapplication.presentation.common.setupWithNavController
 import com.nazartaraniuk.shopapplication.presentation.di.getComponent
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 

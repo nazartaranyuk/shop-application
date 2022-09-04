@@ -33,4 +33,6 @@
     <string name="image_poster">Image poster</string>
     <string name="style">style</string>
     <string name="image_poster_title">Everything you can imagine is real</string>
+    <string name="your_favourites">Your favourites</string>
+    <string name="empty_favorites">You have not added the product to favorites yet</string>
 </resources>

@@ -26,19 +26,23 @@ class FavoritesFragmentViewModel @Inject constructor(
 
     fun getItemsFromDatabase() {
         viewModelScope.launch {
-            _loadingState.value = FavoritesViewModelState(listOf(), View.VISIBLE)
+            _loadingState.value = FavoritesViewModelState(listOf(), true)
             getSavedProductsFromDatabaseUseCase().collect { list ->
                 if (list.isNotEmpty()) {
                     val productModelList = list.map { item ->
                         mapper.toProductItemModel(item)
                     }
-                    _loadingState.value = FavoritesViewModelState(productModelList, View.GONE)
+                    _loadingState.value = FavoritesViewModelState(productModelList, false)
                 } else {
-                    _errorAction.value = Events.Error("You haven't added to favorites yet", View.GONE)
+                    _errorAction.value = Events.Error(ERROR_MESSAGE, false)
                 }
             }
         }
     }
 
-    data class FavoritesViewModelState<T>(val items: List<T>, val visibility: Int)
+    data class FavoritesViewModelState<T>(val items: List<T>, val isVisible: Boolean)
+
+    companion object {
+        const val ERROR_MESSAGE = "You haven't added to favorites yet"
+    }
 }
