@@ -105,7 +105,7 @@ class ExploreFragment : Fragment() {
         }
 
         loadingState.observe(viewLifecycleOwner) { state ->
-
+            binding?.pbLoading?.isVisible = state.isProgressBarVisible
             binding?.linearLayout?.removeAllViews()
             state.categories.filterIsInstance<CategoryItemModel>().forEach { category ->
                 val viewBinding = CategorySmallItemBinding.inflate(
